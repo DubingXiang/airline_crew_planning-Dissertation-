@@ -1,0 +1,7 @@
+﻿  main.cpp
+d:\coding\c++\毕设\cap\cap\cap\include\SummeryTool_H.h(53): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
+d:\coding\c++\毕设\cap\cap\cap\include\SummeryTool_H.h(54): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
+d:\coding\c++\毕设\cap\cap\cap\include\SummeryTool_H.h(55): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
+  Generating code
+  Finished generating code
+  CAP.vcxproj -> D:\Coding\C++\毕设\CAP\CAP\x64\Release\CAP.exe

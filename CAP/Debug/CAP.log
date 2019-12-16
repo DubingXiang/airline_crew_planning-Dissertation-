@@ -1,0 +1,37 @@
+﻿  main.cpp
+d:\coding\c++\毕设\cap\cap\cap\main.cpp(89): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  column_generation.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\column_generation\column_generation.cpp(288): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  column_pool_manager.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\column_generation\column_pool_manager.cpp(33): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  master_problem.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\column_generation\master_problem.cpp(366): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  subproblem.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\column_generation\subproblem.cpp(535): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  crewgroup_searcher.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\crewgroup_searcher.cpp(690): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  optimizer.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\optimizer.cpp(265): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  segpath_searcher.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\segpath_searcher.cpp(211): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  input_handle.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\io\input\input_handle.cpp(465): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  output_handler.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\io\output\output_handler.cpp(216): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  pch.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\pch.cpp(3): fatal error C1083: 无法打开预编译头文件: “Debug\CAP.pch”: No such file or directory
+  crew_rules.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\structures\crew_rules.cpp(110): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  csvClassesTransOptimizable.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\structures\generic\csvclassestransoptimizable.cpp(160): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  IThread_db.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\structures\ithread_db.cpp(30): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  crew_network.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\structures\network\crew_network.cpp(219): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  crew_path.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\structures\network\crew_path.cpp(81): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  seg_network.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\structures\network\seg_network.cpp(404): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  seg_path.cpp
+d:\coding\c++\毕设\cap\cap\cap\src\structures\network\seg_path.cpp(87): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "pch.h"”?
+  正在生成代码...

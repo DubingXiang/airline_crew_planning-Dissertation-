@@ -1,0 +1,2 @@
+CrewRules:minTransferMin^maxTransferMin^minOutRestMin^maxOutRestMin^minFlyMin^maxFlyMin^minDutyMin^maxDutyMin
+15^600^100^720^80^400^80^600

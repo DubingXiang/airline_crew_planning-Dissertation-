@@ -1,0 +1,82 @@
+/* 可以借鉴这个框架
+ * 
+	Examples.createOutputFolder(); //判断是否存在输出文件夹，若否，创建
+	
+	CrewPlanningProblem.Builder problemBuilder = CrewPlanningProblem.Builder.newInstance(); //应该是个
+	
+	new SolomonReader(problemBuilder).read("input/data.txt"); //针对不同数据格式，有对应的Reader类，改变了problemBuilder的各项属性
+	
+	CrewPlanningProblem cpp = problemBuilder.build(); //problemBuilder根据收到的输入数据，其各项属性发生变化，然后建立问题Problem
+	
+	CrewPlanningAlgorithm cp_alg = AlgorithmFactory().createAlgorithm(cpp); //算法工厂，负责创建算法对象的公共接口，工厂子类负责生成具体的算法对象
+	
+	/* 这种做法可以放在每天的问题求解过程，单天优化得到的解保留多个，不一定只保留最优的
+	Collection<CrewPlanningProblemSolution> solutions = cp_alg.searchSolutions(); //算法搜索解，可保留多个解
+	
+	CrewPlanningProblemSolution solution = new SelectStrategy().selectSolution(solutions); //解的选择策略
+	*/
+	
+	
+	SolutionPrinter.print(cpp, solution, SolutionPrinter.Print.PrintModel);
+ **/
+
+void main(){
+	
+	input_data_files
+	create output_dir and output_data_files
+	
+	create problemBuilder
+	
+	Reader(problemBuilder).read(input_data_files);
+	
+	create problem by problemBuilder.build() 
+	
+	Optimizer.setAlgorithm(AlgorithmFactory.createAlgorithm(problem)) //根据问题选择相应的算法
+	
+	Optimizer.optimize()
+	
+	Writer(problem, solution/s).write(output_data_files)
+	
+	
+}
+
+级别
+Class 1.Optimizer类来负责优化，表达的是总体框架，类比于iloCplex类
+
+Class 2
+单天优化的策略也是算法的一部分，所以这一块应该封装到当前算法类中，也就是当前算法工厂子类，因为也可以用其他策略来解，如分步，这是另一个工厂子类
+整个周期的每天都会调用单天优化，是一个大的策略
+定义RollingScheduler类，包含整个周期内的优化框架
+Class 3
+单天优化是更低一级的（应该考虑可能之后不局限于单天）故定义为阶段优化
+PeriodScheduler
+Class 4
+单天之内调用的算法，这一级开始涉及到具体的算法了（但还是一个大的框架，比如CG，LNS）
+
+Class 5
+具体算法框架（CG/LNS/...）这一块应该拥有较高的独立性，做成比较通用的算法框架
+此处使用的是CG，定义类ColumnGeneration
+
+
+
+算法框架下要用到的子算法模块，CG中包括SubProblem，MasterProblem；LNS下面包括Ruin，Recreate等
+SubProblem应该抽象为Problem，因为它是一个独立的问题，只是对CG来说是Subproblem而已，MasterProblem同理
+
+SubProblem 是单独的问题类，问题类的级别应该与算法类是两个派系，互不影响
+SubProblem包括两部分：
+	FindAllFeasibleDuty -- 定义类PathSearcher
+	FindCrewGroup -- 定义类StaffGroupSearcher
+MasterProblem包括：
+	Set Covering Problem 是会不断变化（新增列）的
+	dual price 的传递
+
+SubProblem和MasterProblem中间是否需要一个“沟通桥梁”
+定义辅助类 Transmission
+
+
+
+
+
+
+
+
