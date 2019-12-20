@@ -1,17 +1,17 @@
 #include "input_handle.h"
 
-#include "..\..\..\csv_impl.h";
-#include "..\..\..\Segment_mine.h"
-#include "..\..\..\crewDB_mine.h"
-#include "..\..\..\UtilFunc.h"
+#include "../../../csv_impl.h";
+#include "../../../Segment_mine.h"
+#include "../../../crewDB_mine.h"
+#include "../../../UtilFunc.h"
 
 
-#include "..\..\structures\generic\csvClassesTransOptimizable.h"
-#include "..\..\structures\crew_rules.h"
+#include "../../structures/generic/csvClassesTransOptimizable.h"
+#include "../../structures/crew_rules.h"
 
 
 
-void InputHandler::inputData(std::map<string, std::vector<void*>>& dataSet, const std::vector<string>& objNameSet) {
+void InputHandler::transformInputObjSet(std::map<string, std::vector<void*>>& dataSet, const std::vector<string>& objNameSet) {
 	for (const auto& obj_name : objNameSet) {
 		if (obj_name == "Flight") { typeTrans(dataSet[obj_name], obj_name, &_segSet); }
 		else if (obj_name == "Base") { typeTrans(dataSet[obj_name], obj_name, &_baseSet); }
@@ -76,18 +76,19 @@ void InputHandler::typeTrans(std::vector<void*>& objSet, const std::string& objN
 	else { std::cout << "ERROR: invalid objName " << objName << "\n"; }
 }
 
-void InputHandler::matchOptSegmentSet(/*std::vector<Segment*>& segSet, */std::vector<Opt_Segment*>* optSegSet) {
+void InputHandler::createOptSegments(/*std::vector<Segment*>& segSet, */std::vector<Opt_Segment*>* optSegSet) {
 	for (const auto& seg : _segSet) {
 		Opt_Segment* opt_seg = new Opt_Segment(seg);
 		optSegSet->emplace_back(opt_seg); 
 	}
 }
-void InputHandler::matchOptCrewSet(/*std::vector<CREW*>& crewSet, */std::vector<Opt_CREW*>* optCrewSet) {
+void InputHandler::createOptCrews(/*std::vector<CREW*>& crewSet, */std::vector<Opt_CREW*>* optCrewSet) {
 	for (const auto& crew : _crewSet) {
 		Opt_CREW* opt_crew = new Opt_CREW(crew);
 		optCrewSet->emplace_back(opt_crew);
 	}
 }
+
 void InputHandler::matchOptSegmentAndComposition(std::vector<Opt_Segment*>* optSegSet
 	/*std::vector<csvActivityComposition*>* fltCompoSet,
 	std::vector<csvComposition*>* compoSet*/) {
@@ -145,17 +146,28 @@ void InputHandler::setIndexOfCrew(std::vector<Opt_CREW*>* optCrewSet) {
 	}
 }
 
-void InputHandler::sortCrewRank(/*std::vector<CREW_RANK*>* crewrankAry*/) {
-	//对每个crew的rank按最新的时间排序	
+void InputHandler::sortCrewRank(/*std::vector<CREW_RANK*>* crewrankAry*/) {	
 	std::sort(_crew_rankSet.begin(), _crew_rankSet.end(),
 		[](const CREW_RANK *a, const CREW_RANK *b) {return a->effUtc > b->effUtc; });
 
 }
+void InputHandler::setAirportSet(/*const std::vector<Segment*>& fltSet*/) {
+	for (const auto& flt : _segSet) {
+		if (std::find(_airportSet.begin(), _airportSet.end(), flt->getDepStation()) == _airportSet.end()) {
+			_airportSet.emplace_back(flt->getDepStation());
+		}
+		if (std::find(_airportSet.begin(), _airportSet.end(), flt->getArrStation()) == _airportSet.end()) {
+			_airportSet.emplace_back(flt->getArrStation());
+		}
+	}
+}
+
+/**************random create examples**************/
 std::vector<Opt_CREW*>* InputHandler::getPilotSet(const std::vector<Opt_CREW*>& optCrewSet) {
 	std::vector<Opt_CREW*>* pilotSet = new std::vector<Opt_CREW*>();
 
 	for (const auto& crew : optCrewSet) {
-		if (crew->getDivision() == "P") {			
+		if (crew->getDivision() == "P") {
 			/*for (auto iter = crew->rankAry->begin(); iter != crew->rankAry->end();) {
 				if ((*iter)->rank != "CAP" && (*iter)->rank != "FO") {
 					iter = crew->rankAry->erase(iter);
@@ -167,7 +179,7 @@ std::vector<Opt_CREW*>* InputHandler::getPilotSet(const std::vector<Opt_CREW*>& 
 			if (crew->getCurRank() != "CAP" && crew->getCurRank() != "FO") {
 				continue;
 			}
-			
+
 			pilotSet->emplace_back(crew);
 		}
 	}
@@ -175,18 +187,6 @@ std::vector<Opt_CREW*>* InputHandler::getPilotSet(const std::vector<Opt_CREW*>& 
 	return pilotSet;
 }
 
-void InputHandler::setAirportSet(/*const std::vector<Segment*>& fltSet*/) {
-	for (const auto& flt : _segSet) {
-		if (std::find(_airportSet.begin(), _airportSet.end(), flt->getDepStation()) == _airportSet.end()) {
-			_airportSet.emplace_back(flt->getDepStation());
-		}
-		else if (std::find(_airportSet.begin(), _airportSet.end(), flt->getArrStation()) == _airportSet.end()) {
-			_airportSet.emplace_back(flt->getArrStation());
-		}
-	}
-}
-
-/**************random create examples**************/
 std::vector<string>& InputHandler::createSpecialArpSet() {
 	//std::vector<string>* specialArpSet = new std::vector<string>();
 	//srand(0);	

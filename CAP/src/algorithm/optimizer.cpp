@@ -217,7 +217,7 @@ void Optimizer::updateStatus(const time_t startCurDay, Solution& soln) {
 
 /****************/
 void Optimizer::loadData(std::map<std::string, std::vector<void*>>& dataSet, const std::vector<std::string>& objNameSet) {
-	_inputHandler.inputData(dataSet, objNameSet);
+	_inputHandler.transformInputObjSet(dataSet, objNameSet);
 }
 
 void Optimizer::loadCrewRules(CrewRules& rules) {
@@ -229,10 +229,10 @@ void Optimizer::loadPenaltySetting(const Penalty& penaltySeeting) {
 void Optimizer::init() {
 	_inputHandler.sortCrewRank();
 	
-	_inputHandler.matchOptSegmentSet(&_optSegSet);
+	_inputHandler.createOptSegments(&_optSegSet);
 	_inputHandler.matchOptSegmentAndComposition(&_optSegSet);
 	_inputHandler.setRankToNumMapOfOptSegment(&_optSegSet);
-	_inputHandler.matchOptCrewSet(&_optCrewSet);	
+	_inputHandler.createOptCrews(&_optCrewSet);	
 	_inputHandler.matchOptCrewAndRank(&_optCrewSet);
 	_inputHandler.matchOptCrewAndBase(&_optCrewSet);	
 	

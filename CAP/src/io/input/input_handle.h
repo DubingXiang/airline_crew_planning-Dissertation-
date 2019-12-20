@@ -31,38 +31,171 @@ public:
 		_airportSet.clear();
 	}
 
-	void inputData(std::map<std::string, std::vector<void*>>& dataSet, const std::vector<std::string>& objNameSet);
+	/*
+	 * @brief 转换总体集合
+	 * @detail 总体集合实质为vector<vector<void*>>，需要将其中每个元素vector<void*>中的元素void*转换为对应类型
+	 * 转换后的对象集合分别存放于类的成员，所以实际上同一份数据用了两个对象来存，一个为void*类型，一个为实际具体类型
+	 *
+	 * @param std::map<std::string, std::vector<void*>>& dataSet key为类型名称，value为对应类型的对象集合
+	 * @param const std::vector<std::string>& objNameSet 目标转换类型的名称集合	 
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
+	void transformInputObjSet(std::map<std::string, std::vector<void*>>& dataSet, 
+		const std::vector<std::string>& objNameSet);
+
 	void loadCrewRules(const std::string& rulesFile);
 	void loadPenalties(const std::string& penaltiesFile);
 
-	void matchOptSegmentSet(/*std::vector<Segment*>& segSet, */std::vector<Opt_Segment*>* optSegSet);
-	void matchOptCrewSet(/*std::vector<CREW*>& crewSet, */std::vector<Opt_CREW*>* optCrewSet);
+	/*
+	 * @brief 根据原始类型（Segment）对象创建计算所需类型（Opt_Segment）对象
+	 * @detail 不改变原始类型对象，采用组合的方式，将原始类型对象作为对应新类型对象的成员
+	 *
+	 * @param std::vector<Opt_Segment*>* optSegSet 原始类型对象集合
+	 *
+	 * @attention 有动态内存分配(new Opt_Segment)操作
+	 * @warning
+	 * @exception
+	 *
+	 **/
+	void createOptSegments(/*std::vector<Segment*>& segSet, */std::vector<Opt_Segment*>* optSegSet);
+	/*
+	 * @brief 根据原始类型（CREW）对象创建计算所需类型（Opt_CREW）对象
+	 * @detail 不改变原始类型对象，采用组合的方式，将原始类型对象作为对应新类型对象的成员
+	 *
+	 * @param std::vector<Opt_CREW*>* optCrewSet 原始类型对象集合
+	 *
+	 * @attention 有动态内存分配(new Opt_CREW)操作
+	 * @warning
+	 * @exception
+	 *
+	 **/
+	void createOptCrews(/*std::vector<CREW*>& crewSet, */std::vector<Opt_CREW*>* optCrewSet);
 
+	/*
+	 * @brief 赋值：Opt_Segment的配比要求
+	 * @detail
+	 *
+	 * @param std::vector<Opt_Segment*>* optSegSet
+	 *
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
 	void matchOptSegmentAndComposition(std::vector<Opt_Segment*>* optSegSet
 		/*std::vector<csvActivityComposition*>* fltCompoSet,
 		std::vector<csvComposition*>* compoSet*/);
-	//! added 20190822
-	void setRankToNumMapOfOptSegment(std::vector<Opt_Segment*>* optSegSet);
-	void matchOptCrewAndRank(std::vector<Opt_CREW*>* optCrewSet/*, std::vector<CREW_RANK*>* crewrankSet*/);
-	void matchOptCrewAndBase(std::vector<Opt_CREW*>* optCrewSet/*, std::vector<CREW_BASE*>* crewbaseSet*/);
 	
+	/*
+	 * @brief 赋值：每个Opt_Segment所需要的各个rank的人数
+	 * @detail
+	 *
+	 * @param std::vector<Opt_Segment*>* optSegSet
+	 *
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
+	void setRankToNumMapOfOptSegment(std::vector<Opt_Segment*>* optSegSet);
+
+	/*
+	 * @brief 创建Opt_Crew的rankAry
+	 * @detail
+	 *
+	 * @param std::vector<Opt_CREW*>* optCrewSet
+	 *	 
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
+	void matchOptCrewAndRank(std::vector<Opt_CREW*>* optCrewSet/*, std::vector<CREW_RANK*>* crewrankSet*/);
+	/*
+	 * @brief 创建Opt_Crew的baseAry
+	 * @detail
+	 *
+	 * @param std::vector<Opt_CREW*>* optCrewSet
+	 *
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
+	void matchOptCrewAndBase(std::vector<Opt_CREW*>* optCrewSet/*, std::vector<CREW_BASE*>* crewbaseSet*/);
+
+	/*
+	 * @brief 赋值：Opt_Crew在集合optCrewSet中的下标
+	 * @detail 全局的optCrewSet不允许改变，因而其中Opt_Crew的index也不会改变，便于查找
+	 *
+	 * @param
+	 *
+	 * @return
+	 *     @retval 返回值说明
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
 	void setIndexOfCrew(std::vector<Opt_CREW*>* optCrewSet);
 
+	/*
+	 * @brief 对每个crew的rank按最新的时间排序
+	 * @detail
+	 *
+	 * @param
+	 *
+	 * @return
+	 *     @retval 返回值说明
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
 	void sortCrewRank(/*std::vector<CREW_RANK*>* crewrankAry*/);
 
+	/*
+	 * @brief 赋值：所有airport的集合
+	 * @detail
+	 *
+	 * @param
+	 *
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
 	void setAirportSet(/*const std::vector<Segment*>& fltSet*/);
-	std::vector<std::string>& createSpecialArpSet();
-		
+	
 	std::vector<BASE*>& getBaseSet() { return _baseSet; }
+	
+	/***TODO 这部分应该移除，不属于InputHandler的功能*******************/
 	//先考虑飞行员
 	std::vector<Opt_CREW*>* getPilotSet(const std::vector<Opt_CREW*>& optCrewSet);
-
+	std::vector<std::string>& createSpecialArpSet();
 	void randomSetCrewSkills(std::vector<Opt_CREW*>* optCrewSet, double percent = 0.3);
 	void setRankCombination(CrewRules* rules);
 	//! 按配比记录对应的号位搭配，用组合的一个排列来代表这个组合
 	void setRankCombination_OnePermutation(CrewRules* rules);
 	
 private:
+
+	/*
+	 * @brief 将void*转换为具体类型
+	 * @detail
+	 *
+	 * @param std::vector<void*>& objSet void*对象集合
+	 * @param const std::string& objName 目标转换类型
+	 * @param void* outObjSet 输出参数，转换后的目标类型对象集合
+	 *	 	 
+	 * @attention
+	 * @warning
+	 * @exception
+	 *
+	 **/
 	void typeTrans(std::vector<void*>& objSet, const std::string& objName, void* outObjSet);
 
 	std::vector<Segment*> _segSet;

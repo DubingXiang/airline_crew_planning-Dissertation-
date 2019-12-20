@@ -1,4 +1,7 @@
-﻿  main.cpp
+﻿  config-reader.cpp
+  Generating Code...
+  Compiling...
+  main.cpp
 d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(44): warning C4150: deletion of pointer to incomplete type 'CrewStatus'; no destructor called
           d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(23) : see declaration of 'CrewStatus'
 d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(158): warning C4091: 'extern ' : ignored on left of 'Path' when no variable is declared
@@ -6,7 +9,24 @@ d:\coding\c++\毕设\cap\cap\cap\src\algorithm\..\algorithm\column_generation\co
 d:\coding\c++\毕设\cap\cap\cap\include\SummeryTool_H.h(53): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
 d:\coding\c++\毕设\cap\cap\cap\include\SummeryTool_H.h(54): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
 d:\coding\c++\毕设\cap\cap\cap\include\SummeryTool_H.h(55): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
-  csvReader_mdd.lib(csv_impl.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  seg_path.cpp
+  seg_network.cpp
+  crew_path.cpp
+  crew_network.cpp
+  csvClassesTransOptimizable.cpp
+  crew_rules.cpp
+  pch.cpp
+  output_handler.cpp
+  segpath_searcher.cpp
+  optimizer.cpp
+  crewgroup_searcher.cpp
+  subproblem.cpp
+  master_problem.cpp
+  column_pool_manager.cpp
+  column_generation.cpp
+  csvReader_mdd.lib(csv_reader.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
   Generating code
   Finished generating code

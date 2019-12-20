@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -69,10 +66,34 @@
     <ClCompile Include="src\structures\network\seg_path.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\easylogging\easylogging++.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\examples.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="config-reader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\examples.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="config-reader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

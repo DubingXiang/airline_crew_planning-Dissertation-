@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="config-reader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\algorithm\column_generation\column_generation.cpp" />
     <ClCompile Include="src\algorithm\column_generation\column_pool_manager.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="src\algorithm\crewgroup_searcher.cpp" />
     <ClCompile Include="src\algorithm\optimizer.cpp" />
     <ClCompile Include="src\algorithm\segpath_searcher.cpp" />
+    <ClCompile Include="src\easylogging\easylogging++.cc" />
     <ClCompile Include="src\io\input\input_handle.cpp" />
     <ClCompile Include="src\io\output\output_handler.cpp" />
     <ClCompile Include="src\pch.cpp" />
@@ -37,9 +39,16 @@
     <ClCompile Include="src\structures\network\crew_path.cpp" />
     <ClCompile Include="src\structures\network\seg_network.cpp" />
     <ClCompile Include="src\structures\network\seg_path.cpp" />
+    <ClCompile Include="src\util\examples.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="config-reader.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\test\test.h" />
+    <ClInclude Include="src\util\examples.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -178,6 +187,5 @@
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

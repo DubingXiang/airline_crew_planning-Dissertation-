@@ -21,26 +21,64 @@
 #include "csv_reader.h"
 #include "csv_impl.h"
 
-
+#include "config-reader.h"
 
 #pragma comment(lib, "lib\\debug\\csvReader_mdd.lib")
 
-const vector<string> outDetailFilesName = {
-	"day_iter_CG_LP_.lp", "day_iter_CG_LP_.sln", "day_schedule_flt_only_.txt", "day_schedule_crew_only.csv"
-}
+ //#include "src/test/test.h"
+#include "src/test/util/ExamplesTest.h"
+
+
+#define ELPP_NO_DEFAULT_LOG_FILE //禁用默认日志文件
+#include "src/easylogging/easylogging++.h"
+INITIALIZE_EASYLOGGINGPP // easylogging宏定义
+
+
+#define EXPECT_EQ_DB(expression) assert(expression) == true;
 
 using namespace std;
 using namespace Summery;
-int main() {
+using namespace util;
+
+int main(int argc, char** argv) {	
+
+	/*el::Configurations conf("src/log/my_log.conf");
+	el::Loggers::reconfigureAllLoggers(conf);*/
+	
+	/*el::Configurations default_conf;
+	default_conf.setToDefault();*/
+	
+
+	WorkDirConfig dir_config = WorkDirConfig::getInstance();
+	ConfigReader config_reader(&dir_config);
+	config_reader.readDefault();
+	config_reader.prepareWorkDir();
+	// tested OK
+
+
+	int current_location = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	srand(0);
 	crewCsvReader crew_csv_reader;
 	vector<string> objNameSet = { "Flight","Base","Crew","CrewRank","CrewBase", "FlightComposition", "Composition" };
 	string input_dir = "data/input/";
 	string output_dir = "data/output/";
-
-	
-
 
 	crew_csv_reader.readMutiTableCsv(input_dir + "ro_input_931.txt");
 	auto allTable = crew_csv_reader.datas;
