@@ -12,21 +12,21 @@
  */
 #include "src\pch.h"
 
-#include "src\structures\crew_rules.h"
-#include "src\structures\param_setting\cost_parameters.h"
-#include "src\io\input\input_handle.h"
-#include "src\algorithm\optimizer.h"
-#include "include\SummeryTool_H.h"
 #include "crewDB_mine.h"
 #include "csv_reader.h"
 #include "csv_impl.h"
 
+#include "include/SummeryTool_H.h"
+
+#include "src/structures/crew_rules.h"
+#include "src/problem/problem.h"
+#include "src/structures/param_setting/cost_parameters.h"
+#include "src/algorithm/optimizer.h"
+
 #include "config-reader.h"
+#include "src/util/examples.h"
 
 #pragma comment(lib, "lib\\debug\\csvReader_mdd.lib")
-
- //#include "src/test/test.h"
-#include "src/test/util/ExamplesTest.h"
 
 
 #define ELPP_NO_DEFAULT_LOG_FILE //禁用默认日志文件
@@ -59,28 +59,11 @@ int main(int argc, char** argv) {
 	int current_location = 0;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	srand(0);
 	crewCsvReader crew_csv_reader;
-	vector<string> objNameSet = { "Flight","Base","Crew","CrewRank","CrewBase", "FlightComposition", "Composition" };
-	string input_dir = "data/input/";
-	string output_dir = "data/output/";
+	vector<string> objNameSet = { "Flight","Base","Crew","CrewRank","CrewBase", "FlightComposition", "Composition" };		
 
-	crew_csv_reader.readMutiTableCsv(input_dir + "ro_input_931.txt");
+	crew_csv_reader.readMutiTableCsv(dir_config.getInputDataDir() + "ro_input_931.txt");
 	auto allTable = crew_csv_reader.datas;
 
 	CrewRules rules;
@@ -90,15 +73,29 @@ int main(int argc, char** argv) {
 
 	StopWatch sw;
 	sw.Start();
-	Optimizer opt;
-	opt.loadData(allTable, objNameSet);
+	
+	Concretizer concretizer;
+	concretizer.concretizeAll(allTable, objNameSet);
+	Problem::ProblemBuilder builder(concretizer);
+	Problem* problem = builder.build();
+	
+	Example random_example;
+	set<string> plateau_airport_set;
+	plateau_airport_set = random_example.randomCreatePlateauAirptSet(problem->getAirptSet(), 10);
+	random_example.randomSetCrewSkillls(const_cast<vector<Opt_CREW*>*>(&problem->geOptCrewSet()),
+		problem->getSkillSet(), 0.1);
+	random_example.randomSetRankCombination(&rules);
+	
+	Optimizer opt(problem, &rules, &penalty);
+	/*
+	opt.loadProblem(*problem);
 	opt.loadCrewRules(rules);
 	opt.loadPenaltySetting(penalty);
-	opt.init();
+	opt.init(); 
+	*/
 	sw.Stop();
 	cout << "init spend time: " << sw.Elapsed_s() << " s\n";
-
-	opt.createCase();
+	
 	sw.Restart();
 	rules.setSeqMaps();
 	sw.Stop();

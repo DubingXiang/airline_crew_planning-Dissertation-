@@ -37,7 +37,7 @@ public:
 		_rankAry = NULL;
 		_baseAry = NULL;
 
-		_skillSet.clear();
+		_skillMap.clear();
 		_rankAry->clear();
 		_baseAry->clear();
 
@@ -53,7 +53,7 @@ public:
 	std::string& getDivision() { return _division; }
 	std::string& getCurRank() { return _curRank; }
 	std::string& getCurPosition() { return _curPosition; }
-	std::map<std::string, int>& getSkillSet() { return _skillSet; }
+	std::map<std::string, int>& getSkillMap() { return _skillMap; }
 
 	CrewRankAry& getRankAry() { return *_rankAry; }
 	CrewBaseAry& getBaseAry() {return *_baseAry;	}
@@ -75,7 +75,7 @@ private:
 	std::string _division; //部门:飞行员；乘务员	
 	std::string _curRank;
 	std::string _curPosition;
-	std::map<std::string, int> _skillSet;//特殊资质，此处先为可以飞特殊机场
+	std::map<std::string, int> _skillMap;//特殊资质，此处先为可以飞特殊机场
 	std::string _gender;
 	std::string _nationality;
 

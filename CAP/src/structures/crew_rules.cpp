@@ -84,7 +84,7 @@ void CrewRules::sortSeqMaps() {
 	}
 }
 
-bool CrewRules::isFasibleCombination(const std::vector<Opt_CREW*>& crewComb) {
+bool CrewRules::isFasibleCombination(const std::vector<Opt_CREW*>& crewComb) const {
 	if (crewComb.size() == 1) {
 		return	true;
 	}
@@ -102,6 +102,9 @@ bool CrewRules::isFasibleCombination(const std::vector<Opt_CREW*>& crewComb) {
 		p_set2 = &_pos_order_seqs[combi[i]]->orderSeqIdvec[i];
 		std::set_intersection(p_set1->begin(), p_set1->end(), p_set2->begin(), p_set2->end(),
 			std::insert_iterator<seqIdVec>(intersection, intersection.begin()));
+		if (intersection.empty()) { 
+			return false; 
+		}
 		p_set1 = &intersection;
 	}
 

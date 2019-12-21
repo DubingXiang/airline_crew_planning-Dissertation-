@@ -18,10 +18,11 @@
  * \date 20191217
  **/
 
-#include "../io/input/input_handle.h"
+#include "../structures/defines.h"
+#include "../structures/crew_rules.h"
+#include "../easylogging/easylogging++.h"
 
-
-
+#include <set>
 
 namespace util {
 	
@@ -37,26 +38,29 @@ namespace util {
 		Example() {};
 		~Example() {};
 
+		static el::Logger* logger;
+
 		/*
 		 * @brief 随机选择某些机场，赋予其特殊属性
 		 * @detail 特殊属性的机场意味着对应的航班需要具备特殊资质的crew来担当
 		 *
 		 * @param
-		 *		 
-		 * @attention
-		 * @warning
-		 * @exception
 		 *
 		 **/
-		void randomCreateSpecialAirptSet();
-		void randomCreateCrewSkillls();
-		void randomCreateRankCombination();
+		std::set<std::string> randomCreatePlateauAirptSet(const std::vector<std::string>& airportSet, 
+			const int nbOfPlateauAirport);
+		void randomSetCrewSkillls(std::vector<Opt_CREW*>* optCrewSet, 
+			const std::set<defines::Skill>& skillSet, 
+			const double percent = 0.1);
+		/// TODO
+		void randomSetRankCombination(CrewRules* rules);
 
 	private:
+		
 
 	};
 
-
+	el::Logger* Example::logger = el::Loggers::getLogger("Example");
 }
 
 

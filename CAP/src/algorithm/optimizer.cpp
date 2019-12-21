@@ -19,9 +19,9 @@ const char* CREW_STATUS_FILE = "../data/output/crew_status_record.txt";
 //! end for debug
 const int kSEVEN_DAYS = 7 * 24 * 60;
 
-Optimizer::Optimizer() {	
-	//_column_generation = new ColumnGeneration();
-}
+//Optimizer::Optimizer() {	
+//	//_column_generation = new ColumnGeneration();
+//}
 Optimizer::~Optimizer() {
 	delete _crewNet;
 	delete _segNet;	
@@ -216,49 +216,33 @@ void Optimizer::updateStatus(const time_t startCurDay, Solution& soln) {
 
 
 /****************/
-void Optimizer::loadData(std::map<std::string, std::vector<void*>>& dataSet, const std::vector<std::string>& objNameSet) {
-	_inputHandler.transformInputObjSet(dataSet, objNameSet);
-}
+//void Optimizer::loadProblem(const Problem& pro) {
+//	
+//}
+//
+//void Optimizer::loadCrewRules(CrewRules& rules) {
+//	_rules = &rules;
+//}
+//void Optimizer::loadPenaltySetting(const Penalty& penaltySeeting) {
+//	_penalty = &penaltySeeting;
+//}
 
-void Optimizer::loadCrewRules(CrewRules& rules) {
-	_rules = &rules;
-}
-void Optimizer::loadPenaltySetting(const Penalty& penaltySeeting) {
-	_penalty = &penaltySeeting;
-}
-void Optimizer::init() {
-	_inputHandler.sortCrewRank();
-	
-	_inputHandler.createOptSegments(&_optSegSet);
-	_inputHandler.matchOptSegmentAndComposition(&_optSegSet);
-	_inputHandler.setRankToNumMapOfOptSegment(&_optSegSet);
-	_inputHandler.createOptCrews(&_optCrewSet);	
-	_inputHandler.matchOptCrewAndRank(&_optCrewSet);
-	_inputHandler.matchOptCrewAndBase(&_optCrewSet);	
-	
-	
-	for (auto& crew : _optCrewSet) {
-		crew->setCurRank();
-		crew->setCurPosition();		
-	}
-
-	_crewNet = new CrewNetwork(&_optCrewSet, _rules);
-	_segNet = new SegNetwork(&_optSegSet, &_inputHandler.getBaseSet(), _rules);
-	
-}
+//void Optimizer::init() {
+//	/*_inputHandler.sortCrewRank();	
+//	_inputHandler.createOptSegments(&_optSegSet);
+//	_inputHandler.matchOptSegmentAndComposition(&_optSegSet);
+//	_inputHandler.setRankToNumMapOfOptSegment(&_optSegSet);
+//	_inputHandler.createOptCrews(&_optCrewSet);	
+//	_inputHandler.matchOptCrewAndRank(&_optCrewSet);
+//	_inputHandler.matchOptCrewAndBase(&_optCrewSet);	*/
+//		
+//	/*for (auto& crew : _optCrewSet) {
+//		crew->setCurRank();
+//		crew->setCurPosition();		
+//	}*/
+//
+//	/*_crewNet = new CrewNetwork(&_optCrewSet, _rules);
+//	_segNet = new SegNetwork(&_optSegSet, &_inputHandler.getBaseSet(), _rules);*/
+//}
 
 
-
-
-void Optimizer::createCase() {
-	_inputHandler.setAirportSet();
-	_inputHandler.createSpecialArpSet();
-	
-	_inputHandler.randomSetCrewSkills(&_optCrewSet);
-	_inputHandler.setRankCombination(_rules);
-	_inputHandler.setRankCombination_OnePermutation(_rules);
-
-	_optCrewSet = *_inputHandler.getPilotSet(_optCrewSet);
-
-	_inputHandler.setIndexOfCrew(&_optCrewSet);
-}

@@ -29,9 +29,9 @@
     <ClCompile Include="src\algorithm\optimizer.cpp" />
     <ClCompile Include="src\algorithm\segpath_searcher.cpp" />
     <ClCompile Include="src\easylogging\easylogging++.cc" />
-    <ClCompile Include="src\io\input\input_handle.cpp" />
     <ClCompile Include="src\io\output\output_handler.cpp" />
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\problem\problem.cpp" />
     <ClCompile Include="src\structures\crew_rules.cpp" />
     <ClCompile Include="src\structures\generic\csvClassesTransOptimizable.cpp" />
     <ClCompile Include="src\structures\IThread_db.cpp" />
@@ -44,6 +44,8 @@
   <ItemGroup>
     <ClInclude Include="config-reader.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\problem\problem.h" />
+    <ClInclude Include="src\structures\defines.h" />
     <ClInclude Include="src\test\test.h" />
     <ClInclude Include="src\util\examples.h" />
   </ItemGroup>

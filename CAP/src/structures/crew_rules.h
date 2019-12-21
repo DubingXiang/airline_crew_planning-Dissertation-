@@ -102,7 +102,7 @@ public:
 	 * @brief 判断option是否合法
 	 * @param 多个crew组成的option
 	 */
-	bool isFasibleCombination(const std::vector<Opt_CREW*>& crewComb);
+	bool isFasibleCombination(const std::vector<Opt_CREW*>& crewComb) const;
 
 	/// 组成单条duty须遵守的规则
 	HORIZON_RULES* horizon_rules;

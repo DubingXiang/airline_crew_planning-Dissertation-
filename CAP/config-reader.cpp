@@ -23,13 +23,11 @@ namespace util
 		bool create_input_dir = DirectoryManager::createDir(_work_dir_config->getInputDataDir());
 		bool create_output_dir = DirectoryManager::createDir(_work_dir_config->getOutputDataDir());
 
-		std::string whole_horizion_dir_path = _work_dir_config->getOutputDataDir()
-			+ _work_dir_config->getFilePathSeperator()
+		std::string whole_horizion_dir_path = _work_dir_config->getOutputDataDir()			
 			+ _work_dir_config->getFinalScheduleDirName()
 			+ _work_dir_config->getFilePathSeperator();
 		bool create_finalschedule_dir = DirectoryManager::createDir(whole_horizion_dir_path);
-		std::string period_dir_path = _work_dir_config->getOutputDataDir()
-			+ _work_dir_config->getFilePathSeperator()
+		std::string period_dir_path = _work_dir_config->getOutputDataDir()			
 			+ _work_dir_config->getPeriodFileDirName()
 			+ _work_dir_config->getFilePathSeperator();
 		bool create_periodfile_dir = DirectoryManager::createDir(period_dir_path);

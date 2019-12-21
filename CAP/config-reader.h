@@ -125,8 +125,24 @@ namespace util {
 
 		const std::string& getFilePathSeperator()const;
 		const std::string& getFileNameSeperator()const;
+		
+		/*
+		 * @brief 返回InputDataDir
+		 * @detail 格式为："input/"，左边无"/"，右边有"/"
+		 *
+		 * @return std::string& 		 
+		 *
+		 **/
 		const std::string& getInputDataDir()const;
+		/*
+		 * @brief 返回OutputDataDir
+		 * @detail 格式为："output/"，左边无"/"，右边有"/"
+		 *
+		 * @return std::string&
+		 *
+		 **/
 		const std::string& getOutputDataDir()const;
+		
 		const std::string& getFinalScheduleDirName()const;
 		const std::string& getPeriodFileDirName()const;
 		const std::string& getCplexFileDirName()const;
@@ -141,8 +157,8 @@ namespace util {
 
 		std::string _filePathSeperator = "/"; //< 文件路径分隔符，默认为"/"
 		std::string _fileNameSeperator = "_"; //< 文件名分隔符，默认为"_"
-		std::string _inputDataDir = "data/input"; //< 输入数据文件夹，相对路径，默认为"data/input"
-		std::string _outputDataDir = "data/output"; //< 输出数据文件夹，相对路径，默认为"data/output"
+		std::string _inputDataDir = "data/input/"; //< 输入数据文件夹，相对路径，默认为"data/input"
+		std::string _outputDataDir = "data/output/"; //< 输出数据文件夹，相对路径，默认为"data/output"
 
 		std::string _outputFinalScheduleDirName = "whole_horizon"; //< 最终输出计划文件的文件夹名称
 		std::string _outputPeriodFileDirName = "period"; //< 每个优化period的输出数据文件夹名称

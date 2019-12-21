@@ -49,7 +49,7 @@ void CrewGroup::setBasicProperties() {
 	std::stringstream ranks_str;
 
 	for (const auto& crewnode : _crewNodeSequence) {	
-		spetialCredentials[skill] *= crewnode->optCrew->getSkillSet()[skill];
+		spetialCredentials[skill] *= crewnode->optCrew->getSkillMap()[skill];
 		
 		auto temp_status = crewnode->optCrew->workStatus;		
 		time_t temp_end_loc = temp_status->endDtLoc;

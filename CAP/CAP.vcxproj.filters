@@ -39,9 +39,6 @@
     <ClCompile Include="src\algorithm\column_generation\subproblem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\io\input\input_handle.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\io\output\output_handler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -78,6 +75,9 @@
     <ClCompile Include="config-reader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\problem\problem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -90,6 +90,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="config-reader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structures\defines.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\problem\problem.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

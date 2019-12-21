@@ -1,9 +1,10 @@
 #pragma once
 #ifndef OPTIMIZER_H
 #define OPTIMIZER_H
-#include "..\pch.h"
-#include "..\io\input\input_handle.h"
-#include "..\algorithm\column_generation\column_generation.h"
+#include "../pch.h"
+
+#include "../problem/problem.h"
+#include "../algorithm/column_generation/column_generation.h"
 
 
 class CrewRules;
@@ -29,7 +30,12 @@ class GroupSearcher;
 class Optimizer
 {
 public:
-	Optimizer();
+	Optimizer(const Problem* problem, const CrewRules* rules, const Penalty* penelty) :
+		_problem(problem),
+		_rules(rules),
+		_penalty(penelty) {
+	
+	}
 	~Optimizer();
 
 	/**
@@ -45,31 +51,22 @@ public:
 	void optimize();
 
 	/*******input*******/
-	/**
-	 * @brief 加载数据
-	 * @param 各个模块数据的集合
-	 * @param 各个模块数据的名称
-	 * 将csvReader已经读入的数据（void*型）转化为具体模块对象类型
-	 */
-	void loadData(std::map<std::string, std::vector<void*>>& dataSet, const std::vector<std::string>& objNameSet);
-	/**
-	 * @brief 读入乘务规则，赋给私有成员
-	 * @param 乘务规则
-	 */
-	void loadCrewRules(CrewRules& rules);	
-	/**
-	 * @brief 读入惩罚成本参数值
-	 * @param 惩罚成本参数类
-	 */
-	void loadPenaltySetting(const Penalty& penaltySeeting);
-	/**
-	 * @brief 初始化各个输入对象	 
-	 */
-	void init();
-	/**
-	 * @brief 测试函数，创建测试案例	 
-	 */
-	void createCase();
+
+	//void loadProblem(const Problem& pro);
+	///**
+	// * @brief 读入乘务规则，赋给私有成员
+	// * @param 乘务规则
+	// */
+	//void loadCrewRules(CrewRules& rules);	
+	///**
+	// * @brief 读入惩罚成本参数值
+	// * @param 惩罚成本参数类
+	// */
+	//void loadPenaltySetting(const Penalty& penaltySeeting);
+	///**
+	// * @brief 初始化各个输入对象	 
+	// */
+	//void init();	
 	/// 全局解池		
 	std::vector<Solution*> soln_pool;
 private:	
@@ -95,9 +92,9 @@ private:
 	 * @param 当前天的决策结果
 	 */ 
 	void updateStatus(const time_t startCurDay, Solution& soln);
-
-	InputHandler _inputHandler;
-	CrewRules* _rules;
+	
+	const Problem* _problem;
+	const CrewRules* _rules;
 	const Penalty* _penalty;
 	
 	std::vector<Opt_Segment*> _optSegSet;
