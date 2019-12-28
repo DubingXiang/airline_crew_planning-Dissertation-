@@ -14,7 +14,7 @@ bool price_cmp(const CrewGroup* a, const CrewGroup* b) {
 	return a->getCost() > b->getCost();
 }
 
-void GroupSearcher::init(CrewNetwork& crewNet, CrewRules& rules) {
+void GroupSearcher::init(CrewNetwork& crewNet, const CrewRules& rules) {
 	_net = &crewNet;
 	_s = crewNet.resource;
 	_t = crewNet.sink;

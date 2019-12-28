@@ -21,7 +21,7 @@ public:
 	//SegPathSearcher(SegNetwork& segNet, SegNode& s, CrewRules& rules);
 	~SegPathSearcher();
 	
-	void init(SegNetwork& segNet, SegNode& s, CrewRules& rules);
+	void init(SegNetwork& segNet, SegNode& s, const CrewRules& rules);
 	void reset(SegNode& s);
 	void search();
 	std::vector<SegPath*>& getPathSet() { return _segpath_set; }
@@ -31,7 +31,7 @@ private:
 	SegNetwork* _net;
 	SegNode* _s;
 	//SegNode* _t; _t is not necessary
-	CrewRules* _rules;
+	const CrewRules* _rules;
 	//! output all the feasible (single day) paths 
 	std::vector<SegPath*> _segpath_set;
 

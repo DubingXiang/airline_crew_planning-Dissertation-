@@ -150,7 +150,6 @@ void Problem::ProblemBuilder::setRankToNumMapOfOptSegment() {
 	}
 }
 
-
 void Problem::ProblemBuilder::matchOptCrewAndRankAry() {
 	std::map<string, CrewRankAry*> id_rank;
 
@@ -213,7 +212,7 @@ void Problem::ProblemBuilder::setAirportSet() {
 	}
 }
 
-
+el::Logger* Problem::logger = el::Loggers::getLogger("Problem");
 Problem::Problem(const ProblemBuilder& builder) {
 	this->_segSet = builder._segSet;
 	this->_crewSet = builder._crewSet;

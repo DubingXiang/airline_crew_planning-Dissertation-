@@ -1,10 +1,17 @@
 #pragma once
-#include <unordered_set>
 #ifndef CREW_RULES_H
 #define CREW_RULES_H
 
+#include "defines.h"
+#include <unordered_set>
+
+using namespace defines;
+
 class Opt_CREW;
-using seqIdVec = std::vector<int>; ///< 存放seq在_rankCombinationSet中的id
+
+static std::vector<std::string> CAP_positions{ "C1","C2", "C4", "T1", "T2", "T3", "K1", "K2", "K3" };
+static std::vector<std::string> FO_positions{ "F1", "F2", "F3", "F4", "F5", "F6", "J1", "J2" };
+
 
 /**
  * @class PosOrderSeqvec
@@ -40,11 +47,6 @@ public:
 	int order;
 	std::map<std::string, seqIdVec> posSeqIdvec;
 };
-
-
-
-static std::vector<std::string> CAP_positions{ "C1","C2", "C4", "T1", "T2", "T3", "K1", "K2", "K3" };
-static std::vector<std::string> FO_positions{ "F1", "F2", "F3", "F4", "F5", "F6", "J1", "J2" };
 
 /**
  * 组成单条duty时的规则

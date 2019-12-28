@@ -23,7 +23,7 @@
 class SubProblem 
 {
 public:
-	SubProblem(CrewNetwork& crewNet, SegNetwork& segNet, CrewRules& rules);
+	SubProblem(CrewNetwork& crewNet, SegNetwork& segNet, const CrewRules& rules);
 	~SubProblem();
 	/**
 	 * @brief set初始乘务组
@@ -158,7 +158,7 @@ private:
 	std::map<std::string, std::vector<CrewNode*>> _pos_crewnodes_map;
 	std::map<std::string, int> _rank_to_num_crew_map;
 
-	CrewRules* _rules;
+	const CrewRules* _rules;
 	std::vector<Opt_Segment*> _cur_day_seg_set;
 	std::vector<CrewNode*> _crewnode_set; //TODO:未初始化
 	ColumnPool _local_pool; //每次子问题得到的新列

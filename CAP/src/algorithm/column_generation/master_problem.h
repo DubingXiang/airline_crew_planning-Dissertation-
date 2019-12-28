@@ -2,10 +2,10 @@
 #ifndef MASTER_PROBLEM_H
 #define MASTER_PROBLEM_H
 #include "column.h"
-#include "..\..\structures\network\crew_network.h"
-#include "..\..\structures\network\seg_network.h"
-#include "..\..\structures\generic\csvClassesTransOptimizable.h"
-#include "ilcplex\ilocplex.h"
+#include "../../structures/network/crew_network.h"
+#include "../../structures/network/seg_network.h"
+#include "../../structures/generic/csvClassesTransOptimizable.h"
+#include "ilcplex/ilocplex.h"
 #include <memory>
 
 

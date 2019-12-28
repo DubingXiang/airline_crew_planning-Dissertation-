@@ -6,9 +6,9 @@
 const std::string MIP_FILE_PATH = "../data/output/mip_files/";
 
 
-ColumnGeneration::ColumnGeneration() {
+CrewSchedulingColumnGenerationModule::CrewSchedulingColumnGenerationModule() {
 }
-ColumnGeneration::~ColumnGeneration() {
+CrewSchedulingColumnGenerationModule::~CrewSchedulingColumnGenerationModule() {
 	releaseVector(_global_pool);
 	delete _global_pool;
 	delete _master;
@@ -23,10 +23,10 @@ ColumnGeneration::~ColumnGeneration() {
 	std::cout << "column generation destruct function\n";
 }
 
-void ColumnGeneration::init(/*ColumnPool& initialPool*/int curDay, std::vector<CrewGroup*>& initialGroups,
+void CrewSchedulingColumnGenerationModule::init(/*ColumnPool& initialPool*/int curDay, std::vector<CrewGroup*>& initialGroups,
 							CrewNetwork& crewNet,
 							SegNetwork& segNet,
-							CrewRules& rules,
+							const CrewRules& rules,
 							const Penalty& penaltySetting) {	
 	_cur_day_str = std::to_string(curDay);
 
@@ -47,7 +47,7 @@ void ColumnGeneration::init(/*ColumnPool& initialPool*/int curDay, std::vector<C
 	_max_num_iter = MAX_NUM_ITER;
 }
 
-void ColumnGeneration::solve() {
+void CrewSchedulingColumnGenerationModule::solve() {
 	int result = 0;	
 	_sub_pro->findSegPaths();
 	_sub_pro->setPathStatus(*_penalty);
@@ -117,7 +117,8 @@ void ColumnGeneration::solve() {
 			//TODO: 实际是top k，后续优化
 			std::sort(local_pool.begin(), local_pool.end(),
 				[](const Column* a, const Column* b) {return a->reduced_cost < b->reduced_cost; });
-			int num_saved_columns = std::min(1000, (int)local_pool.size());
+			
+			int num_saved_columns = min(1000, (int)local_pool.size());
 			for (ColumnPool::iterator it = local_pool.begin() + num_saved_columns; it != local_pool.end();) {
 				delete *it;
 				it = local_pool.erase(it);
@@ -192,7 +193,7 @@ void ColumnGeneration::solve() {
 			/*end! output uncovered segments and rest-crews*/
 
 
-			Solution* opt_soln = new Solution();
+			CrewSchedulingSolution* opt_soln = new CrewSchedulingSolution();
 			getFeasibleSolution(opt_soln);
 			_solution_pool.emplace_back(opt_soln);
 			if (obj_value_opt <= _ub) {
@@ -213,7 +214,7 @@ void ColumnGeneration::solve() {
 	}
 }
 
-bool ColumnGeneration::isCoverageHigh() {
+bool CrewSchedulingColumnGenerationModule::isCoverageHigh() {
 	IloNumVarArray& vars_uncover = _master->getUncoverDvar();
 	size_t vars_size = vars_uncover.getSize();
 	int count = 0;
@@ -226,7 +227,7 @@ bool ColumnGeneration::isCoverageHigh() {
 	return count >= vars_size * REQUIRE_CAVERAGE_RATE;
 }
 
-bool ColumnGeneration::isFeasibelSoln(IloNumVarArray& dvars) {
+bool CrewSchedulingColumnGenerationModule::isFeasibelSoln(IloNumVarArray& dvars) {
 	const double kEPSILON = 1e-8;	
 	for (size_t i = 0; i < dvars.getSize(); i++) {		
 		if (!(std::abs(_master->_cplex.getValue(dvars[i]) - 1) <= kEPSILON || std::abs(_master->_cplex.getValue(dvars[i]) - 0) <= kEPSILON)) {
@@ -238,7 +239,7 @@ bool ColumnGeneration::isFeasibelSoln(IloNumVarArray& dvars) {
 	return true;
 }
 
-int ColumnGeneration::solveMIP() {
+int CrewSchedulingColumnGenerationModule::solveMIP() {
 	
 	IloEnv env = _master->_model.getEnv();
 	_mip_model = IloModel(env);	
@@ -270,7 +271,7 @@ int ColumnGeneration::solveMIP() {
 	
 	return status;
 }
-void ColumnGeneration::getFeasibleSolution(Solution* soln) {
+void CrewSchedulingColumnGenerationModule::getFeasibleSolution(CrewSchedulingSolution* soln) {
 	IloNumArray values(_mip_cplex.getEnv());
 	_mip_cplex.getValues(values, _master->getPathDvar());
 	//std::vector<double> dvar_values(values.getSize());	
@@ -278,10 +279,28 @@ void ColumnGeneration::getFeasibleSolution(Solution* soln) {
 	for (size_t i = 0; i < values.getSize(); i++) {
 		//std::cout << "<i," << std::to_string(i) << ", value:" << values[i] << ">\n";
 		if (values[i] > 0.99 /*&& (*_global_pool)[i]->type == ColumnType::duty*/) {
-			soln->column_pool.emplace_back((*_global_pool)[i]);
+			soln->getColumnPool().emplace_back((*_global_pool)[i]);
 			//std::cout << "<i," << std::to_string(i) << ", value:" << values[i] << ">\n";
 		}
 	}	
-	soln->obj_value = _mip_cplex.getObjValue();
+	soln->setTotalObjValue(_mip_cplex.getObjValue());
 }
 
+
+void CrewSchedulingColumnGenerationModule::solveMasterProblem() {
+	std::cout << "still in the process of testing \
+		\n this is the function " << __FUNCTION__ << std::endl;
+}
+void CrewSchedulingColumnGenerationModule::solveSubProblem() {
+	std::cout << "still in the process of testing "
+		<< "\nthis is the function" << __FUNCTION__ << std::endl;
+}
+void CrewSchedulingColumnGenerationModule::updateDuals() {
+	std::cout << "still in the process of testing "
+		<< "\nthis is the function" << __FUNCTION__ << std::endl;
+}
+bool CrewSchedulingColumnGenerationModule::terminate() {
+	std::cout << "still in the process of testing "
+		<< "\nthis is the function" << __FUNCTION__ << std::endl;
+	return true;
+}

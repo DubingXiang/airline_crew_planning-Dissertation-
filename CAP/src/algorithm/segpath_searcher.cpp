@@ -12,7 +12,7 @@
 //		_visited_by_path[arc] = 0;
 //	}
 //}
-void SegPathSearcher::init(SegNetwork& segNet, SegNode& s, CrewRules& rules) {
+void SegPathSearcher::init(SegNetwork& segNet, SegNode& s, const CrewRules& rules) {
 	_net = &segNet;	
 	_rules = &rules;
 	_s = &s;

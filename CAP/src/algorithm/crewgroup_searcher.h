@@ -34,7 +34,7 @@ public:
 	//! _net; _s; _t; 
 	//void inputCrewNetwork(CrewNetwork* crewNet, CrewNode* s, CrewNode* t) { _net = crewNet; _s = s; _t = t; }
 	
-	void init(CrewNetwork& crewNet, CrewRules& rules);
+	void init(CrewNetwork& crewNet, const CrewRules& rules);
 	void search();
 	
 	//! 在挑选crewGroup的时候检查crew的工作状态
@@ -86,7 +86,7 @@ private:
 	CrewNetwork* _net;
 	CrewNode* _s;
 	CrewNode* _t;
-	CrewRules* _rules;
+	const CrewRules* _rules;
 
 	const int _NEGATIVE_INF = 0xc0c0c0c0;
 	std::map<CrewNode*, double> _cost_map;

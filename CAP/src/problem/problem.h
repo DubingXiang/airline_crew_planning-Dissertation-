@@ -175,7 +175,7 @@ public:
 
 	Problem(const ProblemBuilder& builder); 
 	
-	static el::Logger* logger;
+	static el::Logger* logger;	
 
 	const std::vector<Segment*>& getSegmentSet() const { return _segSet; }
 	const std::vector<CREW*>& getCrewSet() const { return _crewSet; }
@@ -209,7 +209,8 @@ private:
 	std::vector<Opt_CREW*> _optCrewSet;
 
 };
-el::Logger* Problem::logger = el::Loggers::getLogger("Problem");
+
+
 // end Problem
 
 

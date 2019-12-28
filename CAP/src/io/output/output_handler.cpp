@@ -1,7 +1,7 @@
 #include "output_handler.h"
 
 using namespace std;
-void OutputHandler::writeSchedule(const Solution& soln, const SegNodeSet& curDaySegSet, const std::string& schFile) {
+void OutputHandler::writeSchedule(const CrewSchedulingSolution& soln, const SegNodeSet& curDaySegSet, const std::string& schFile) {
 	ofstream outf;
 	outf.open(schFile, std::ios::out);
 	
@@ -18,9 +18,9 @@ void OutputHandler::writeSchedule(const Solution& soln, const SegNodeSet& curDay
 	}
 	outf << scheduleHeader.back() << "\n";
 
-	const ColumnPool& pool = soln.column_pool;
+	const ColumnPool pool;// = soln.getColumnPool(); TODO:to be fixed
 	for (const auto& col : pool) {
-		if (col->type == ColumnType::relax) {
+		if (col->type == Column::ColumnType::RELAX) {
 			continue;
 		}
 
@@ -76,7 +76,7 @@ void OutputHandler::writeSchedule(const Solution& soln, const SegNodeSet& curDay
 	outf.close();
 
 }
-void OutputHandler::writeCrewStatus(const Solution& soln, const std::string& statusFile) {
+void OutputHandler::writeCrewStatus(const CrewSchedulingSolution& soln, const std::string& statusFile) {
 	ofstream outf;
 	outf.open(statusFile, std::ios::out);
 	
@@ -85,10 +85,10 @@ void OutputHandler::writeCrewStatus(const Solution& soln, const std::string& sta
 	}
 	outf << crewStatusHeader.back() << "\n";
 
-	const ColumnPool& pool = soln.column_pool;
+	ColumnPool pool;//= soln.getColumnPool();
 	int id = 1;
 	for (const auto& col : pool) {
-		if (col->type == ColumnType::relax) {
+		if (col->type == Column::ColumnType::RELAX) {
 			continue;
 		}
 		outf << "----Group" << id++ << "\n";

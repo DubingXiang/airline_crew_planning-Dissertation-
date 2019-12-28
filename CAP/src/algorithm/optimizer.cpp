@@ -1,27 +1,30 @@
 #include "Optimizer.h"
-#include "..\..\UtilFunc.h"
-#include "..\structures\generic\csvClassesTransOptimizable.h"
-#include "..\structures\crew_rules.h"
-#include "..\structures\network\seg_network.h"
-#include "..\structures\network\crew_network.h"
-#include "..\structures\network\seg_path.h"
-#include "..\structures\network\crew_path.h"
-#include "..\algorithm\crewgroup_searcher.h"
-#include "..\io\output\output_handler.h"
-#include "..\structures\param_setting\cost_parameters.h"
+#include "../../UtilFunc.h"
+#include "../structures/generic/csvClassesTransOptimizable.h"
+#include "../structures/crew_rules.h"
+#include "../structures/network/seg_network.h"
+#include "../structures/network/crew_network.h"
+#include "../structures/network/seg_path.h"
+#include "../structures/network/crew_path.h"
+#include "../algorithm/crewgroup_searcher.h"
+#include "../io/output/output_handler.h"
+#include "../structures/param_setting/cost_parameters.h"
 
 //! for debug
-#include "..\..\include\SummeryTool_H.h"
+#include "../../include/SummeryTool_H.h"
 static Summery::StopWatch TIMER;
 
 const char* CREW_STATUS_FILE = "../data/output/crew_status_record.txt";
 
 //! end for debug
 const int kSEVEN_DAYS = 7 * 24 * 60;
+const int _SECONDS_ONE_DAY = 3600 * 24;
 
 //Optimizer::Optimizer() {	
 //	//_column_generation = new ColumnGeneration();
 //}
+el::Logger* Optimizer::logger = el::Loggers::getLogger("Optimizer");
+
 Optimizer::~Optimizer() {
 	delete _crewNet;
 	delete _segNet;	
@@ -37,6 +40,9 @@ void Optimizer::optimize() {
 	TIMER.Stop();
 	TIMER.printElapsed();
 
+	logger->info("created connect network\n");
+	
+
 	OutputHandler output_handler;
 	std::stringstream cur_day_sch_file;
 	std::stringstream cur_day_crew_status_file;
@@ -50,6 +56,8 @@ void Optimizer::optimize() {
 	clusterSegNode();
 	//size_t length_plan = _day_segnode_map.size(); //TODO: 放在初始化的时候 //8-15
 	
+	//logger->info("split whole planning horizon into {0} sub time periods\n", T);
+
 	size_t iter = 0;
 	time_t start_cur_day;
 	for (/*size_t iter = 0; iter < length_plan; iter++*/ //8-15
@@ -72,11 +80,11 @@ void Optimizer::optimize() {
 		initial_soln.getCurLocalPool();*/
 		//initial_soln
 		// 4.
-		ColumnGeneration* column_generation = new ColumnGeneration();
+		CrewSchedulingColumnGenerationModule* column_generation = new CrewSchedulingColumnGenerationModule();
  		column_generation->init(iter, initial_groups, *_crewNet, *_segNet, *_rules, *_penalty);
 		column_generation->solve();
 
-		Solution* cur_day_soln = new Solution(column_generation->getBestSoln());
+		CrewSchedulingSolution* cur_day_soln = new CrewSchedulingSolution(column_generation->getBestSoln());
 		soln_pool.emplace_back(cur_day_soln);
 		//update crew's and seg's status according cur day's decision
 		updateStatus(start_cur_day, *cur_day_soln);
@@ -163,8 +171,8 @@ void Optimizer::setCurDayStartNodeSet(int curDay) {
 
 //! 当前阶段的duty的departureDt和crew在当前阶段开始时的endDtLoc之间的时间间隔，需要判断该间隔是否满足了day off
 //! 若该时间间隔超过day off，那么实际上，crew就是进行了一次day off
-void Optimizer::updateStatus(const time_t startCurDay, Solution& soln) {
-	ColumnPool& pool = soln.column_pool;
+void Optimizer::updateStatus(const time_t startCurDay, CrewSchedulingSolution& soln) {
+	ColumnPool& pool = soln.getColumnPool();
 	time_t endCurDay = startCurDay + 86400 - 1;
 	Column* col;
 	for (size_t i = 0; i < pool.size(); i++) {
@@ -176,7 +184,7 @@ void Optimizer::updateStatus(const time_t startCurDay, Solution& soln) {
 			segnode->optSegment->setAssigned(true);
 		}
 
-		time_t 	relax_end_loc = col->type == ColumnType::duty ?
+		time_t 	relax_end_loc = col->type == Column::ColumnType::DUTY ?
 						  segpath->startNode->startDtLoc : endCurDay;
 		
 		
@@ -199,7 +207,7 @@ void Optimizer::updateStatus(const time_t startCurDay, Solution& soln) {
 				status->accumuCreditMin = 0;
 				status->wholePlanTotalCreditMint -= duration;
 			}
-			if (col->type == ColumnType::duty) {			
+			if (col->type == Column::ColumnType::DUTY) {
 				status->endDtLoc = segpath->endNode->endDtLoc;
 				status->restStation = segpath->endNode->arvStation;
 			}

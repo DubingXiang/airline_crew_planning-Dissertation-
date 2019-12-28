@@ -4,6 +4,7 @@
 
 namespace util 
 {
+	el::Logger* Example::logger = el::Loggers::getLogger("Example");
 	std::set<std::string> Example::randomCreatePlateauAirptSet(const std::vector<std::string>& airportSet,
 		const int nbOfPlateauAirport) {
 		size_t size = airportSet.size();

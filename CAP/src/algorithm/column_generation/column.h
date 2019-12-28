@@ -1,18 +1,9 @@
 #pragma once
 #ifndef COLUMN_H
 #define COLUMN_H
-#include "..\..\structures\network\seg_path.h"
-#include "..\..\structures\network\crew_path.h"
+#include "../../structures/network/seg_path.h"
+#include "../../structures/network/crew_path.h"
 
-/**
- * @brief 枚举类 列的类型 
- * 包括：1）relax-休息 2）duty-任务
- */
-enum ColumnType 
-{
-	relax = 0,
-	duty = 1
-};
 
 /**
  * @class Column
@@ -22,9 +13,20 @@ enum ColumnType
 class Column 
 {
 public:
+	/*
+	 * @brief 枚举类 列的类型
+	 * 包括：0-relax 1-duty
+	 **/
+	enum ColumnType
+	{
+		RELAX,
+		DUTY,
+		PRE_ASSIGNED
+	};
+
 	Column() {
 		cost = FIXED_COST;
-		type = ColumnType::duty;
+		type = ColumnType::DUTY;
 	};
 	/**
 	 * @brief 构造函数
@@ -36,12 +38,14 @@ public:
 		_crewgroup = &crewGroup;
 
 		cost = FIXED_COST;
-		type = ColumnType::duty;
+		type = ColumnType::DUTY;
 	}
 	~Column() {
 		_segpath = NULL;
 		_crewgroup = NULL;
 	}
+	
+
 	double cost;
 	const int FIXED_COST = 0;//100; //固定成本
 	double reduced_cost;

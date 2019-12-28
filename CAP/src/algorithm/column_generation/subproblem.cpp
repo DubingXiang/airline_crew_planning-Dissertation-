@@ -18,7 +18,7 @@ const int kNUM_GROUPS_FOR_ONE_COMPOSITION = 1e5;
 
 /*end! DEBUG 8-15 find uncover seg and possible crew*/
 
-SubProblem::SubProblem(CrewNetwork& crewNet, SegNetwork& segNet, CrewRules& rules) {
+SubProblem::SubProblem(CrewNetwork& crewNet, SegNetwork& segNet, const CrewRules& rules) {
 	_rules = &rules;
 	_group_searcher.init(crewNet, rules);
 	_seg_path_searcher.init(segNet, *segNet.resource, rules);
@@ -357,7 +357,7 @@ void SubProblem::searchGroupByComposition(const std::string compositionName, std
 	std::vector<CrewGroup*> cur_partial_group_set;
 	std::vector<CrewGroup*> next_partial_group_set;
 
-	const std::vector<std::string>& cur_sequnce_set = _rules->compo_sequences_map[compositionName];
+	const std::vector<std::string>& cur_sequnce_set = _rules->compo_sequences_map.at(compositionName);
 	std::vector<std::string> pos_set;
 	for (const auto& seq : cur_sequnce_set) {
 		pos_set.clear();
@@ -476,7 +476,7 @@ bool SubProblem::isMatchable(CrewGroup& group, SegPath& segPath) {
 void SubProblem::addRestColumns() {
 	for (size_t i = 0; i < _crewnode_set.size(); i++) {
 		Column* rest_col = new Column();
-		rest_col->type = ColumnType::relax;
+		rest_col->type = Column::ColumnType::RELAX;
 		CrewGroup* single_crew = new CrewGroup();
 		single_crew->getNodeSequence().emplace_back(_crewnode_set[i]);
 		single_crew->setCrewIndexSet();

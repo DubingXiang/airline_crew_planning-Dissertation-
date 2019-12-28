@@ -22,16 +22,20 @@
     <ClCompile Include="config-reader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\algorithm\column_generation\column_generation.cpp" />
+    <ClCompile Include="src\algorithm\column_generation\column_generation_module.cpp" />
     <ClCompile Include="src\algorithm\column_generation\column_pool_manager.cpp" />
     <ClCompile Include="src\algorithm\column_generation\master_problem.cpp" />
     <ClCompile Include="src\algorithm\column_generation\subproblem.cpp" />
     <ClCompile Include="src\algorithm\crewgroup_searcher.cpp" />
+    <ClCompile Include="src\algorithm\crew_scheduling_algorithm.cpp" />
     <ClCompile Include="src\algorithm\optimizer.cpp" />
     <ClCompile Include="src\algorithm\segpath_searcher.cpp" />
     <ClCompile Include="src\easylogging\easylogging++.cc" />
     <ClCompile Include="src\io\output\output_handler.cpp" />
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\problem\period.cpp" />
     <ClCompile Include="src\problem\problem.cpp" />
+    <ClCompile Include="src\problem\solution\crew_scheduling_solution.cpp" />
     <ClCompile Include="src\structures\crew_rules.cpp" />
     <ClCompile Include="src\structures\generic\csvClassesTransOptimizable.cpp" />
     <ClCompile Include="src\structures\IThread_db.cpp" />
@@ -43,8 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config-reader.h" />
+    <ClInclude Include="src\algorithm\column_generation\column_generation_module.h" />
+    <ClInclude Include="src\algorithm\crew_scheduling_algorithm.h" />
+    <ClInclude Include="src\algorithm\solving_approach_module.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\problem\period.h" />
     <ClInclude Include="src\problem\problem.h" />
+    <ClInclude Include="src\problem\solution\crew_scheduling_solution.h" />
     <ClInclude Include="src\structures\defines.h" />
     <ClInclude Include="src\test\test.h" />
     <ClInclude Include="src\util\examples.h" />

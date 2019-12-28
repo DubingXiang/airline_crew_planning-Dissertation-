@@ -92,7 +92,7 @@ void MasterProblem::addObjFunction() {
 
 		total_cost += (*global_pool)[i]->cost;
 
-		if ((*global_pool)[i]->type == ColumnType::duty) {
+		if ((*global_pool)[i]->type == Column::ColumnType::DUTY) {
 			_dvars_path[i].setName(std::to_string(i).data());
 		}
 		else {

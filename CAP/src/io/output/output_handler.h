@@ -17,10 +17,10 @@ class OutputHandler
 public:
 	//! 记录单天的计划
 	//！包括为覆盖的班
-	void writeSchedule(const Solution& soln, const SegNodeSet& curDaySegSet, const std::string& schFile);
+	void writeSchedule(const CrewSchedulingSolution& soln, const SegNodeSet& curDaySegSet, const std::string& schFile);
 	//! 记录单天crew的状态
 	//! 以乘务组为单位
-	void writeCrewStatus(const Solution& soln, const std::string& statusFile);
+	void writeCrewStatus(const CrewSchedulingSolution& soln, const std::string& statusFile);
 	//! 记录整个周期每个crew的状态
 	void writeCrewStatus(const vector<Opt_CREW*>& crewSet, const char* statusFile);
 	

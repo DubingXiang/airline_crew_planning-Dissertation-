@@ -7,12 +7,12 @@
 #include "../algorithm/column_generation/column_generation.h"
 
 
-class CrewRules;
+//class CrewRules;
 class PosOrderSeqvec;
 class OrderPosSeqvec;
 
-class Opt_Segment;
-class Opt_CREW;
+//class Opt_Segment;
+//class Opt_CREW;
 
 class SegNetwork;
 class CrewNetwork;
@@ -50,25 +50,10 @@ public:
 	 */
 	void optimize();
 
-	/*******input*******/
+	static el::Logger* logger;
 
-	//void loadProblem(const Problem& pro);
-	///**
-	// * @brief 读入乘务规则，赋给私有成员
-	// * @param 乘务规则
-	// */
-	//void loadCrewRules(CrewRules& rules);	
-	///**
-	// * @brief 读入惩罚成本参数值
-	// * @param 惩罚成本参数类
-	// */
-	//void loadPenaltySetting(const Penalty& penaltySeeting);
-	///**
-	// * @brief 初始化各个输入对象	 
-	// */
-	//void init();	
 	/// 全局解池		
-	std::vector<Solution*> soln_pool;
+	std::vector<CrewSchedulingSolution*> soln_pool;
 private:	
 	/**
 	 * @brief 选择初始乘务组
@@ -91,7 +76,7 @@ private:
 	 * @param 当前天的起始时间
 	 * @param 当前天的决策结果
 	 */ 
-	void updateStatus(const time_t startCurDay, Solution& soln);
+	void updateStatus(const time_t startCurDay, CrewSchedulingSolution& soln);
 	
 	const Problem* _problem;
 	const CrewRules* _rules;
@@ -108,7 +93,7 @@ private:
 	std::map<time_t, SegNodeSet> _daytime_segnode_map;
 	
 	time_t _begining_plan;
-	const int _SECONDS_ONE_DAY = 24 * 3600; //24 hour * 3600 secends
+	
 	SegNodeSet* _cur_day_segnode_set;
 
 	// added-20190819

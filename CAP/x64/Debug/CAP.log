@@ -1,81 +1,56 @@
-﻿  crew_rules.cpp
-d:\coding\c++\毕设\cap\cap\cap\src\structures\generic\csvClassesTransOptimizable.h(44): warning C4150: deletion of pointer to incomplete type 'CrewStatus'; no destructor called
-          d:\coding\c++\毕设\cap\cap\cap\src\structures\generic\csvClassesTransOptimizable.h(23) : see declaration of 'CrewStatus'
-d:\coding\c++\毕设\cap\cap\cap\src\structures\generic\csvClassesTransOptimizable.h(158): warning C4091: 'extern ' : ignored on left of 'Path' when no variable is declared
-src\structures\crew_rules.cpp(99): error C2678: binary '[' : no operator found which takes a left-hand operand of type 'const std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>' (or there is no acceptable conversion)
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-          D:\ProgramPackage\Coding\IDE\VS\VS2013\VC\include\map(224): could be 'PosOrderSeqvec *&std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>::operator [](const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)'
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-          D:\ProgramPackage\Coding\IDE\VS\VS2013\VC\include\map(172): or       'PosOrderSeqvec *&std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>::operator [](std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&)'
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-          while trying to match the argument list '(const std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>, std::basic_string<char,std::char_traits<char>,std::allocator<char>>)'
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-src\structures\crew_rules.cpp(99): error C2227: left of '->orderSeqIdvec' must point to class/struct/union/generic type
-src\structures\crew_rules.cpp(102): error C2678: binary '[' : no operator found which takes a left-hand operand of type 'const std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>' (or there is no acceptable conversion)
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-          D:\ProgramPackage\Coding\IDE\VS\VS2013\VC\include\map(224): could be 'PosOrderSeqvec *&std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>::operator [](const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)'
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-          D:\ProgramPackage\Coding\IDE\VS\VS2013\VC\include\map(172): or       'PosOrderSeqvec *&std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>::operator [](std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&)'
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-          while trying to match the argument list '(const std::map<std::string,PosOrderSeqvec *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>, std::basic_string<char,std::char_traits<char>,std::allocator<char>>)'
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=PosOrderSeqvec *
-          ]
-src\structures\crew_rules.cpp(102): error C2227: left of '->orderSeqIdvec' must point to class/struct/union/generic type
-  optimizer.cpp
+﻿  optimizer.cpp
 d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(44): warning C4150: deletion of pointer to incomplete type 'CrewStatus'; no destructor called
           d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(23) : see declaration of 'CrewStatus'
 d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(158): warning C4091: 'extern ' : ignored on left of 'Path' when no variable is declared
-d:\coding\c++\毕设\cap\cap\cap\src\algorithm\../algorithm/column_generation/column_generation.h(11): warning C4244: 'initializing' : conversion from 'double' to 'const int', possible loss of data
-d:\coding\c++\毕设\cap\cap\cap\src\algorithm\..\..\include\SummeryTool_H.h(53): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
-d:\coding\c++\毕设\cap\cap\cap\src\algorithm\..\..\include\SummeryTool_H.h(54): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
-d:\coding\c++\毕设\cap\cap\cap\src\algorithm\..\..\include\SummeryTool_H.h(55): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
-src\algorithm\optimizer.cpp(76): error C2664: 'void ColumnGeneration::init(int,std::vector<CrewGroup *,std::allocator<_Ty>> &,CrewNetwork &,SegNetwork &,CrewRules &,const Penalty &)' : cannot convert argument 5 from 'const CrewRules' to 'CrewRules &'
-          with
-          [
-              _Ty=CrewGroup *
-          ]
-          Conversion loses qualifiers
-src\algorithm\optimizer.cpp(196): warning C4244: 'initializing' : conversion from 'time_t' to 'int', possible loss of data
-  main.cpp
-d:\coding\c++\毕设\cap\cap\cap\include/SummeryTool_H.h(53): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
-d:\coding\c++\毕设\cap\cap\cap\include/SummeryTool_H.h(54): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
-d:\coding\c++\毕设\cap\cap\cap\include/SummeryTool_H.h(55): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
-d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(44): warning C4150: deletion of pointer to incomplete type 'CrewStatus'; no destructor called
-          d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(23) : see declaration of 'CrewStatus'
-d:\coding\c++\毕设\cap\cap\cap\src\structures\network\..\generic\csvClassesTransOptimizable.h(158): warning C4091: 'extern ' : ignored on left of 'Path' when no variable is declared
-d:\coding\c++\毕设\cap\cap\cap\src\algorithm\../algorithm/column_generation/column_generation.h(11): warning C4244: 'initializing' : conversion from 'double' to 'const int', possible loss of data
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\column_generation\column_generation_module.h(11): warning C4172: returning address of local variable or temporary
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\../algorithm/column_generation/column_generation.h(15): warning C4244: 'initializing' : conversion from 'double' to 'const int', possible loss of data
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\../../include/SummeryTool_H.h(53): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\../../include/SummeryTool_H.h(54): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
+d:\coding\c++\毕设\cap\cap\cap\src\algorithm\../../include/SummeryTool_H.h(55): warning C4244: '=' : conversion from 'double' to '__int64', possible loss of data
+src\algorithm\optimizer.cpp(84): warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+src\algorithm\optimizer.cpp(204): warning C4244: 'initializing' : conversion from 'time_t' to 'int', possible loss of data
   Generating Code...
   Skipping... (no relevant changes detected)
   pch.cpp
-  problem.cpp
+  csvReader_mdd.lib(csv_reader.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+  Generating code
+  Finished generating code
+concert.lib(ilosstructi.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosstructi.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilohash.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilohash.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloalg.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloalg.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloenv.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloenv.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilostimei.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilostimei.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloallocator.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloallocator.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilosatomi.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosatomi.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloserror.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloserror.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilosdisplayi.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosdisplayi.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilorandom.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilorandom.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilothread.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilothread.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilossol.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilossol.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilotypes.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilotypes.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloexpression.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloexpression.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilosbasic.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosbasic.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloset.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloset.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloconstraint.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloconstraint.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloanyexpr.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloanyexpr.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloextractable.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloextractable.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilomap.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilomap.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilosmodel.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosmodel.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilosolution.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosolution.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloiterator.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloiterator.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilossequencei.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilossequencei.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilocollection.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilocollection.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilocollectionstruct.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilocollectionstruct.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilosimplecollection.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosimplecollection.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilocollectionoperator.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilocollectionoperator.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilocollectioniterator.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilocollectioniterator.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloskiplist.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloskiplist.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilonumfunci.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilonumfunci.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(iloparami.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(iloparami.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(ilointervalsi.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilointervalsi.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(evalkernel.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(evalkernel.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(evaluator.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(evaluator.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(evalexpand.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(evalexpand.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+concert.lib(strtod.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(strtod.obj)' or at 'D:\Coding\C++\毕设\CAP\CAP\x64\Debug\concert.pdb'; linking object as if no debug info
+  CAP.vcxproj -> D:\Coding\C++\毕设\CAP\CAP\x64\Debug\CAP.exe

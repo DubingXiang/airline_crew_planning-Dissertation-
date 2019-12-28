@@ -66,13 +66,16 @@ int main(int argc, char** argv) {
 	crew_csv_reader.readMutiTableCsv(dir_config.getInputDataDir() + "ro_input_931.txt");
 	auto allTable = crew_csv_reader.datas;
 
+	StopWatch sw;
+	sw.Start();
+
 	CrewRules rules;
 	rules.setHorizonRules(15, 600, 100, 720, 80, 400, 80, 600);
 	rules.setWeekPara(7200, 1200, 2160, 4320);
+	
 	Penalty penalty(1, 1, 1000, 1, 1, 1, 1);
 
-	StopWatch sw;
-	sw.Start();
+	
 	
 	Concretizer concretizer;
 	concretizer.concretizeAll(allTable, objNameSet);
@@ -86,22 +89,17 @@ int main(int argc, char** argv) {
 		problem->getSkillSet(), 0.1);
 	random_example.randomSetRankCombination(&rules);
 	
-	Optimizer opt(problem, &rules, &penalty);
-	/*
-	opt.loadProblem(*problem);
-	opt.loadCrewRules(rules);
-	opt.loadPenaltySetting(penalty);
-	opt.init(); 
-	*/
-	sw.Stop();
-	cout << "init spend time: " << sw.Elapsed_s() << " s\n";
-	
 	sw.Restart();
 	rules.setSeqMaps();
 	sw.Stop();
 	cout << "set all permutations of combinations spend time: " << sw.Elapsed_s() << " s\n";
+	sw.Restart();
 	rules.sortSeqMaps();
-
+	sw.Stop();
+	cout << "init spend time: " << sw.Elapsed_s() << " s\n";
+	
+	Optimizer opt(problem, &rules, &penalty);
+	
 	sw.Restart();
 	opt.optimize();
 	sw.Stop();

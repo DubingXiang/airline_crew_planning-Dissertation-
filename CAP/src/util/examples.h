@@ -59,8 +59,6 @@ namespace util {
 		
 
 	};
-
-	el::Logger* Example::logger = el::Loggers::getLogger("Example");
 }
 
 

@@ -1,7 +1,7 @@
-#include "..\pch.h"
+#include "../pch.h"
 #include "crew_rules.h"
-#include "generic\csvClassesTransOptimizable.h"
-#include "..\..\UtilFunc.h"
+#include "generic/csvClassesTransOptimizable.h"
+#include "../../UtilFunc.h"
 
 
 void CrewRules::setHorizonRules(int minTransMin,
@@ -96,10 +96,10 @@ bool CrewRules::isFasibleCombination(const std::vector<Opt_CREW*>& crewComb) con
 	//std::sort(combi.begin(), combi.end());
 	//不断求交集
 	seqIdVec intersection;
-	seqIdVec *p_set1 = &_pos_order_seqs[combi[0]]->orderSeqIdvec[0];
+	seqIdVec *p_set1 = &_pos_order_seqs.at(combi[0])->orderSeqIdvec[0];
 	seqIdVec *p_set2;
 	for (int i = 1; i < combi.size(); i++) {
-		p_set2 = &_pos_order_seqs[combi[i]]->orderSeqIdvec[i];
+		p_set2 = &_pos_order_seqs.at(combi[i])->orderSeqIdvec[i];
 		std::set_intersection(p_set1->begin(), p_set1->end(), p_set2->begin(), p_set2->end(),
 			std::insert_iterator<seqIdVec>(intersection, intersection.begin()));
 		if (intersection.empty()) { 
