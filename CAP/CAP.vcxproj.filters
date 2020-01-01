@@ -54,13 +54,7 @@
     <ClCompile Include="src\structures\network\crew_network.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\structures\network\crew_path.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\structures\network\seg_network.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\structures\network\seg_path.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -88,6 +82,27 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\algorithm\column_generation\column_generation_module.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\problem\cost\event_path_costcalculator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\unit_penalty_store.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\structures\path\crew_path.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\structures\path\seg_path.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\structures\network\crew_node_arc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\structures\network\seg_node_arc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\problem\cost\crew_group_costcalculator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,6 +138,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\algorithm\column_generation\column_generation_module.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\unit_penalty_setting.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\problem\cost\event_path_costcalculator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structures\network\seg_node_arc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\problem\cost\crew_group_costcalculator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structures\network\crew_node_arc.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

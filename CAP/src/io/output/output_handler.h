@@ -1,11 +1,14 @@
 #pragma once
 #ifndef OUTPUT_HANDLER_H
 #define OUTPUT_HANDLER_H
-#include "..\..\..\UtilFunc.h"
-#include "..\..\algorithm\column_generation\column_generation.h"
-#include <iostream>
-#include <sstream>
-#include <fstream>
+#include "../../../UtilFunc.h"
+//#include "../../algorithm/column_generation/column_generation.h"
+#include "../../problem/solution/crew_scheduling_solution.h"
+#include "../../structures/network/seg_node_arc.h"
+#include "../../structures/network/crew_node_arc.h"
+
+
+using namespace Network;
 
 const std::vector<string> scheduleHeader = { "crewID","rank","position", "startDtLoc", "endDtLoc","dutys content<startDt-endDt-<fltId-fltNum>" };
 const std::vector<string> crewStatusHeader = { "crewID","rank","position", "accumFltMin","accumCreditMin","totalFlyMin","totalCreditMint" };

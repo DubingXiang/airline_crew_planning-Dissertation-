@@ -1,8 +1,10 @@
 #include "crewgroup_searcher.h"
-#include "../structures/crew_rules.h"
-#include "../structures/network/crew_network.h"
-#include "../structures/network/crew_path.h"
 #include "../structures/generic/csvClassesTransOptimizable.h"
+#include "../structures/crew_rules.h"
+
+#include "../structures/path/crew_path.h"
+
+using namespace Network;
 
 /*debug*/
 const char* DEBUG_FILE_crew_group_searching = "../data/output/crew_group_searching.txt";

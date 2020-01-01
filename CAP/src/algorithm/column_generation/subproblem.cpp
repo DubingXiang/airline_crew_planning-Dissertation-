@@ -1,9 +1,10 @@
 #include "subproblem.h"
-#include "..\..\..\include/algorithm_xdb.h"
-#include "..\..\..\UtilFunc.h"
+#include "../../../include/algorithm_xdb.h"
+#include "../../../UtilFunc.h"
 
 
 
+//using namespace Network;
 
 /*DEBUG 8-15 find uncover seg and possible crew*/
 //const std::vector<long long> kUNCOVER_SEG_ID = { 54266023, 54253231, 54246335,54266024,54267951 };
@@ -18,7 +19,7 @@ const int kNUM_GROUPS_FOR_ONE_COMPOSITION = 1e5;
 
 /*end! DEBUG 8-15 find uncover seg and possible crew*/
 
-SubProblem::SubProblem(CrewNetwork& crewNet, SegNetwork& segNet, const CrewRules& rules) {
+SubProblem::SubProblem(Network::CrewNetwork& crewNet, Network::SegNetwork& segNet, const CrewRules& rules) {
 	_rules = &rules;
 	_group_searcher.init(crewNet, rules);
 	_seg_path_searcher.init(segNet, *segNet.resource, rules);
@@ -52,9 +53,11 @@ void SubProblem::findSegPaths() {
 
 }
 
-void SubProblem::setPathStatus(const Penalty& penalty) {	
+void SubProblem::setPathStatus(/*const Penalty& penalty*/) {	
+	utils::ALLUnitPenaltyStore penalty_store = utils::ALLUnitPenaltyStore::getInstance();
+	auto eventpath_penalty_map = penalty_store.getEventPathCostTypePenaltyMap();
 	for (auto& path : _cur_day_path_set) {
-		path->computeCost(penalty);	
+		path->computeCost(eventpath_penalty_map);	
 	}
 	
 	_seg_path_searcher.clear();
@@ -62,7 +65,7 @@ void SubProblem::setPathStatus(const Penalty& penalty) {
 
 void SubProblem::setCurDaySegSet() {
 	for (const auto& segpath : _cur_day_path_set) {
-		std::vector<SegNode*>& segnode_set = segpath->getNodeSequence();
+		std::vector<Network::SegNode*>& segnode_set = segpath->getNodeSequence();
 		for (const auto& segnode : segnode_set) {
 			if (std::find(_cur_day_seg_set.begin(), _cur_day_seg_set.end(), segnode->optSegment) 
 				== _cur_day_seg_set.end()) {
@@ -104,7 +107,7 @@ void SubProblem::estimateMeanFlyMin() {
 	//取segpath_set的中间80%，以及crew_set的中间80%，求飞时均值
 
 	std::sort(_cur_day_path_set.begin(), _cur_day_path_set.end(),
-		[](const SegPath* a, const SegPath* b) {return a->total_fly_mint > b->total_fly_mint; });
+		[](const EventPath* a, const EventPath* b) {return a->total_fly_mint > b->total_fly_mint; });
 	int low = 0.1 * _cur_day_path_set.size();
 	int high = 0.9 * _cur_day_path_set.size();
 
@@ -116,10 +119,10 @@ void SubProblem::estimateMeanFlyMin() {
 
 	//! changed 8-12-2019
 	//! 不应该改变_crewnode_set的顺序，因为之后的对偶价格要对应 
-	std::vector<CrewNode*> temp_crewnode_set(_crewnode_set);
+	std::vector<Network::CrewNode*> temp_crewnode_set(_crewnode_set);
 
 	std::sort(temp_crewnode_set.begin(), temp_crewnode_set.end(),
-		[](const CrewNode* a, const CrewNode* b) {return a->optCrew->workStatus->accumuFlyMin < b->optCrew->workStatus->accumuFlyMin; });
+		[](const Network::CrewNode* a, const Network::CrewNode* b) {return a->optCrew->workStatus->accumuFlyMin < b->optCrew->workStatus->accumuFlyMin; });
 	low = 0.1 * (temp_crewnode_set.size());
 	high = 0.9 * (temp_crewnode_set.size());
 	int mean_crew_fly_min = 0;
@@ -158,7 +161,7 @@ void SubProblem::updateDuals(std::vector<double>& segCoverDuals, std::vector<dou
 		path->total_dual_price = 0;
 		auto node_of_path = path->getNodeSequence();
 		for (auto& node : node_of_path) {
-			if (node->nodeType == NodeType::dhd) {
+			if (node->nodeType == Network::NodeType::DEADHEAD) {
 				continue;
 			}
 			path->total_dual_price += node->optSegment->getDualPrice();
@@ -186,8 +189,8 @@ void SubProblem::matchGroupAndPath() {
 
 		int gap_crew_segpath = 0;		
 		for (auto& segpath : _cur_day_path_set) {
-			SegNode* start_node = segpath->startNode;
-			SegNode* end_node = segpath->endNode;
+			Network::SegNode* start_node = segpath->startNode;
+			Network::SegNode* end_node = segpath->endNode;
 
 			/*DEBUG 8-15 find uncover seg and possible crew*/
 			for (const auto& crew : group->getCrewGroup()) {
@@ -196,7 +199,7 @@ void SubProblem::matchGroupAndPath() {
 				}
 			}
 			
-			SegNodeSet& segnode_set = segpath->getNodeSequence();
+			Network::SegNodeSet& segnode_set = segpath->getNodeSequence();
 			for (size_t s = 0; s < segnode_set.size(); s++) {
 				long long seg_id = segnode_set[s]->optSegment->getDBId();
 				if (seg_id == 54253231) {
@@ -292,7 +295,7 @@ void SubProblem::findColumnSet() {
 	sort_pos_crew_set(); //对每种position的crew按price排序	
 	for (const auto& k_v : _compo_mode_segpath_set) {
 		std::string cur_compo_mode = k_v.first;
-		const std::vector<SegPath*>& cur_duty_set = k_v.second;
+		const std::vector<EventPath*>& cur_duty_set = k_v.second;
 		
 		std::vector<CrewGroup*>* cur_group_set = new std::vector<CrewGroup*>();
 		searchGroupByComposition(cur_compo_mode, cur_group_set); //得到crewGroup == partial_group_set
@@ -349,7 +352,7 @@ void SubProblem::findColumnSet() {
 void SubProblem::sort_pos_crew_set() {
 	for (auto& k_v : _pos_crewnodes_map) {
 		std::sort(k_v.second.begin(), k_v.second.end(),
-			[](const CrewNode* a, const CrewNode* b) {return a->price > b->price; });
+			[](const Network::CrewNode* a, const Network::CrewNode* b) {return a->price > b->price; });
 	}
 }
 
@@ -384,8 +387,8 @@ void SubProblem::searchGroupByComposition(const std::string compositionName, std
 		}
 
 		size_t total_num_group = crewGroupSet->size();
-		CrewNode *cur_node;
-		std::vector<CrewNode*>* next_node_set;
+		Network::CrewNode *cur_node;
+		std::vector<Network::CrewNode*>* next_node_set;
 		CrewStatus *cur_status, *next_status;
 		size_t size = pos_set.size();
 		size_t i = 1;
@@ -430,9 +433,9 @@ void SubProblem::searchGroupByComposition(const std::string compositionName, std
 	}
 }
 
-bool SubProblem::isMatchable(CrewGroup& group, SegPath& segPath) {
-	SegNode* start_node = segPath.startNode;
-	SegNode* end_node = segPath.endNode;
+bool SubProblem::isMatchable(CrewGroup& group, EventPath& segPath) {
+	Network::SegNode* start_node = segPath.startNode;
+	Network::SegNode* end_node = segPath.endNode;
 	
 	if (group.curStation != "" && group.curStation != start_node->depStation) {
 		//=="",说明是初次迭代，不需要满足空间接续。不过实际上crew的初始状态中是有一个计划周期开始时的所在地的信息，这里先不考虑
@@ -484,7 +487,7 @@ void SubProblem::addRestColumns() {
 		single_crew->setBasicProperties();
 		single_crew->computeCost();
 
-		SegPath* segpath = new SegPath();
+		EventPath* segpath = new EventPath();
 		//segpath->_total_cost = 0;	
 		segpath->total_fly_mint = 0;
 		segpath->total_credit_mint = 0;

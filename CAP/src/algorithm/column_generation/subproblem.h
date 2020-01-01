@@ -2,15 +2,17 @@
 #ifndef SUBPROBLEM_H
 #define SUBPROBLEM_H
 #include "../../pch.h"
-#include "../crewgroup_searcher.h"
-#include "../segpath_searcher.h"
-#include "../../structures/network/crew_network.h"
-#include "../../structures/network/seg_network.h"
+#include "../../util/cost_indicators.h"
+#include "../../util/unit_penalty_setting.h"
 #include "../../structures/generic/csvClassesTransOptimizable.h"
 #include "../../structures/crew_rules.h"
-#include "column.h"
-#include "../../structures/param_setting/cost_parameters.h"
 
+#include "../../structures/network/crew_network.h"
+#include "../../structures/network/seg_network.h"
+
+#include "../crewgroup_searcher.h"
+#include "../segpath_searcher.h"
+#include "column.h"
 
 /**
  * @class SubProblem
@@ -23,7 +25,7 @@
 class SubProblem 
 {
 public:
-	SubProblem(CrewNetwork& crewNet, SegNetwork& segNet, const CrewRules& rules);
+	SubProblem(Network::CrewNetwork& crewNet, Network::SegNetwork& segNet, const CrewRules& rules);
 	~SubProblem();
 	/**
 	 * @brief set初始乘务组
@@ -39,7 +41,7 @@ public:
 	 * @param 各项惩罚成本参数
 	 * 
 	 */
-	void setPathStatus(const Penalty& penalty); //TODO：改名
+	void setPathStatus(/*const Penalty& penalty*/); //TODO：改名
 	/**
 	 * @brief 设置决策当天须覆盖的segment集合
 	 * 先调用了私有函数得到当天的所有segPath
@@ -153,19 +155,19 @@ private:
 	 * @param duty
 	 * @return true if 满足约束:1）时间 2）空间 3）配比 4）特殊资质
 	 */
-	bool isMatchable(CrewGroup& group, SegPath& segPath);
+	bool isMatchable(CrewGroup& group, EventPath& segPath);
 
-	std::map<std::string, std::vector<CrewNode*>> _pos_crewnodes_map;
+	std::map<std::string, std::vector<Network::CrewNode*>> _pos_crewnodes_map;
 	std::map<std::string, int> _rank_to_num_crew_map;
 
 	const CrewRules* _rules;
 	std::vector<Opt_Segment*> _cur_day_seg_set;
-	std::vector<CrewNode*> _crewnode_set; //TODO:未初始化
+	std::vector<Network::CrewNode*> _crewnode_set; //TODO:未初始化
 	ColumnPool _local_pool; //每次子问题得到的新列
 
 	GroupSearcher _group_searcher;
 	SegPathSearcher _seg_path_searcher;
-	std::vector<SegPath*> _cur_day_path_set;
+	std::vector<EventPath*> _cur_day_path_set;
 	
 	int _mean_fly_mint;
 	std::map<std::string, int> _rank_to_mean_fly_mint;
@@ -174,7 +176,7 @@ private:
 	std::vector<double> _balance_flytime_duals;
 	std::vector<double> _balance_resttime_duals;*/
 
-	std::map<std::string, std::vector<SegPath*>> _compo_mode_segpath_set;
+	std::map<std::string, std::vector<EventPath*>> _compo_mode_segpath_set;
 
 
 };

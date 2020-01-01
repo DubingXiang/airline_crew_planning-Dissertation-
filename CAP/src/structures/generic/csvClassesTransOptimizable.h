@@ -26,8 +26,6 @@ typedef std::vector<CREW_RANK*> CrewRankAry;
 typedef std::vector<CREW_BASE*> CrewBaseAry;
 
 
-
-
 class Opt_CREW
 {
 public:

@@ -1,10 +1,12 @@
 #pragma once
 #ifndef SEG_PATH_H
 #define SEG_PATH_H
-#include "..\..\pch.h"
+#include "../../pch.h"
+#include "../../util/unit_penalty_setting.h"
+#include "../generic/csvClassesTransOptimizable.h"
+#include "../network/seg_node_arc.h"
 #include "IPath.h"
-#include "..\generic\csvClassesTransOptimizable.h"
-#include "..\param_setting\cost_parameters.h"
+
 
 const int INIT_PRICE = 1000 * 1000;// 目的是使初始的reduced cost为负， 需要和penalty的取值协调
 struct csvComposition;
@@ -20,17 +22,12 @@ static std::map<std::string, compoMode> compoModeMap = { {"1CAP1FO", {"1CAP1FO",
 	{"2CAP1FO", {"2CAP1FO", 3, {{"CAP",2}, {"FO",1}}} },
 	{"3CAP1FO", {"3CAP1FO", 4, {{"CAP",3}, {"FO",1}} } } };
 
-class SegNode;
-class SegArc;
-class Opt_CREW;
-class CrewGroup;
 
-
-class SegPath :public IPath
+class EventPath :public IPath
 {
 public:			
-	SegPath();
-	virtual ~SegPath();		
+	EventPath();
+	virtual ~EventPath();		
 	//! simple getter
 	virtual double getCost() const;
 
@@ -40,8 +37,9 @@ public:
 	//! 1.fly_time
 	//! 2.dhd
 	//! 3.special_credential
-	void computeCost(/*std::vector<costTuple>& costTuples*/const Penalty& penaltySetting);
-	std::vector<SegNode*>& getNodeSequence() { return _segNodeSequence; }	
+	//void computeCost(const Penalty& penaltySetting);
+	void computeCost(const std::map <utils::EventPathCostType, int > & eventPathCostTypePenalty);
+	std::vector<Network::SegNode*>& getNodeSequence() { return _segNodeSequence; }
 	
 
 	//SegPathCost& getSegPathCost() { return _segPathCost; }
@@ -59,8 +57,9 @@ public:
 
 	/*8-6-2019*/
 	std::map<std::string, int> specialCredentials;
-	SegNode* startNode;
-	SegNode* endNode;
+	Network::SegNode* startNode;
+	Network::SegNode* endNode;
+
 	int total_fly_mint;
 	int total_credit_mint; //TODO：记得赋值
 	int total_dhd;
@@ -68,15 +67,15 @@ public:
 
 	double total_dual_price = INIT_PRICE;
 private:
+	
 	double _total_cost = 0;
 	
 	int _nbSegNodes;
 	int _nbCrews;
-	std::vector<SegNode*> _segNodeSequence;	
-	//CrewGroup* _crewGroup;	
-
-	//SegPathCost _segPathCost;
-	const Penalty* _penalty_setting;
+	std::vector<Network::SegNode*> _segNodeSequence;		
+	
+	//const Penalty* _penalty_setting; //20191229 changed
+	utils::EventPathCostTypeAmount _costtype_to_amount;
 
 	// basic properties
 	

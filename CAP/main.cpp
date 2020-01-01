@@ -20,7 +20,7 @@
 
 #include "src/structures/crew_rules.h"
 #include "src/problem/problem.h"
-#include "src/structures/param_setting/cost_parameters.h"
+#include "src/util/cost_indicators.h"
 #include "src/algorithm/optimizer.h"
 
 #include "config-reader.h"
@@ -38,7 +38,7 @@ INITIALIZE_EASYLOGGINGPP // easylogging宏定义
 
 using namespace std;
 using namespace Summery;
-using namespace util;
+using namespace utils;
 
 int main(int argc, char** argv) {	
 
@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
 	rules.setHorizonRules(15, 600, 100, 720, 80, 400, 80, 600);
 	rules.setWeekPara(7200, 1200, 2160, 4320);
 	
-	Penalty penalty(1, 1, 1000, 1, 1, 1, 1);
+	//Penalty penalty(1, 1, 1000, 1, 1, 1, 1);
 
 	
 	
@@ -98,7 +98,7 @@ int main(int argc, char** argv) {
 	sw.Stop();
 	cout << "init spend time: " << sw.Elapsed_s() << " s\n";
 	
-	Optimizer opt(problem, &rules, &penalty);
+	Optimizer opt(problem, &rules/*, &penalty*/);
 	
 	sw.Restart();
 	opt.optimize();

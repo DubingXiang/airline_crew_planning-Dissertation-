@@ -1,6 +1,6 @@
 #include "config-reader.h"
 
-namespace util 
+namespace utils 
 {
 	
 	/*1.ConfigReader******************************************/

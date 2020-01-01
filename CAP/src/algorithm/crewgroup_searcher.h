@@ -2,13 +2,11 @@
 #ifndef CREW_GROUP_SEARCHER_H
 #define CREW_GROUP_SEARCHER_H
 #include "..\pch.h"
+#include "../structures/network/crew_network.h"
 
 
-class CrewNetwork;
 class CrewGroup;
-class CrewNode;
 class Opt_CREW;
-
 class CrewRules;
 
 class GroupSearcher
@@ -34,7 +32,7 @@ public:
 	//! _net; _s; _t; 
 	//void inputCrewNetwork(CrewNetwork* crewNet, CrewNode* s, CrewNode* t) { _net = crewNet; _s = s; _t = t; }
 	
-	void init(CrewNetwork& crewNet, const CrewRules& rules);
+	void init(Network::CrewNetwork& crewNet, const CrewRules& rules);
 	void search();
 	
 	//! 在挑选crewGroup的时候检查crew的工作状态
@@ -66,9 +64,9 @@ private:
 	{
 		std::string type; //CAP or FO
 		double total_price;
-		std::vector<CrewNode*> crew_nodes;
+		std::vector<Network::CrewNode*> crew_nodes;
 	};
-	std::map<std::string, std::vector<CrewNode*>> _rank_nodes;
+	std::map<std::string, std::vector<Network::CrewNode*>> _rank_nodes;
 
 
 	//search for crew group
@@ -83,14 +81,14 @@ private:
 	INode* _t;*/
 
 	/*----------------------Crew Network----------------------*/
-	CrewNetwork* _net;
-	CrewNode* _s;
-	CrewNode* _t;
+	Network::CrewNetwork* _net;
+	Network::CrewNode* _s;
+	Network::CrewNode* _t;
 	const CrewRules* _rules;
 
 	const int _NEGATIVE_INF = 0xc0c0c0c0;
-	std::map<CrewNode*, double> _cost_map;
-	std::map<CrewNode*, CrewNode*> _prev_map;
+	std::map<Network::CrewNode*, double> _cost_map;
+	std::map<Network::CrewNode*, Network::CrewNode*> _prev_map;
 	
 	//// index = cur node 
 	//// value = total cost to cur node 
@@ -102,14 +100,14 @@ private:
 	/**topo**/
 	struct crewLabel
 	{
-		std::vector<CrewNode*> cur_node_sequence;
+		std::vector<Network::CrewNode*> cur_node_sequence;
 		double cur_price;
 	};
-	std::map<CrewNode*, std::vector<crewLabel*>> _node_labels; //是否需要保留多个label
-	std::map<CrewNode*, crewLabel*> _node_label; //仅保留一个label
+	std::map<Network::CrewNode*, std::vector<crewLabel*>> _node_labels; //是否需要保留多个label
+	std::map<Network::CrewNode*, crewLabel*> _node_label; //仅保留一个label
 
-	std::unordered_map<CrewNode*, int> _node_indegree;
-	std::queue<CrewNode*> _topo_order;
+	std::unordered_map<Network::CrewNode*, int> _node_indegree;
+	std::queue<Network::CrewNode*> _topo_order;
 	/**end! topo**/
 
 	/**combination rules**/
@@ -118,7 +116,7 @@ private:
 	int _max_num_path = 4;
 	/**end! combination rules**/
 
-	std::vector<CrewNode*> _node_sequence;
+	std::vector<Network::CrewNode*> _node_sequence;
 	std::vector<CrewGroup*> _crewgroup_heap;
 
 	

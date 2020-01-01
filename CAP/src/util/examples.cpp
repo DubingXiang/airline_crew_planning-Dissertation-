@@ -2,7 +2,7 @@
 #include "../structures/generic/csvClassesTransOptimizable.h"
 
 
-namespace util 
+namespace utils 
 {
 	el::Logger* Example::logger = el::Loggers::getLogger("Example");
 	std::set<std::string> Example::randomCreatePlateauAirptSet(const std::vector<std::string>& airportSet,

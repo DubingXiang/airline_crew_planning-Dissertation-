@@ -1,4 +1,8 @@
 #include "output_handler.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <iomanip>
 
 using namespace std;
 void OutputHandler::writeSchedule(const CrewSchedulingSolution& soln, const SegNodeSet& curDaySegSet, const std::string& schFile) {
@@ -7,7 +11,7 @@ void OutputHandler::writeSchedule(const CrewSchedulingSolution& soln, const SegN
 	
 	map<long long, int> seg_covered; //seg_id ±ªcover, ‘Úseg_covered[i]=1
 	for (size_t i = 0; i < curDaySegSet.size(); i++) {
-		if (curDaySegSet[i]->nodeType == NodeType::seg && curDaySegSet[i]->optSegment->getAssigned()) {
+		if (curDaySegSet[i]->nodeType == NodeType::SEGMENT && curDaySegSet[i]->optSegment->getAssigned()) {
 			seg_covered[curDaySegSet[i]->optSegment->getDBId()] = 1;
 		}
 		
@@ -31,7 +35,7 @@ void OutputHandler::writeSchedule(const CrewSchedulingSolution& soln, const SegN
 		}
 
 		outf << "    ----duty:";
-		SegPath* duty = col->_segpath;
+		EventPath* duty = col->_segpath;
 		outf << "startDtLoc: " << utcToUtcString(duty->startNode->startDtLoc) << " "
 			<< "endDtLoc: " << utcToUtcString(duty->endNode->endDtLoc) << " "
 			<< "startStation: " << duty->startNode->depStation << " "
@@ -59,7 +63,7 @@ void OutputHandler::writeSchedule(const CrewSchedulingSolution& soln, const SegN
 	Opt_Segment* uncovered_seg;
 	for (size_t i = 0; i < seg_covered.size(); i++) {
 		uncovered_seg = curDaySegSet[i]->optSegment;
-		if (curDaySegSet[i]->nodeType == NodeType::seg && seg_covered[uncovered_seg->getDBId()] != 1) {
+		if (curDaySegSet[i]->nodeType == NodeType::SEGMENT && seg_covered[uncovered_seg->getDBId()] != 1) {
 			ss << "id: " << uncovered_seg->getDBId() << " "
 				<< "fltNum: " << uncovered_seg->getFlightNumber() << " "
 				<< "depDtLoc: " << utcToUtcString(uncovered_seg->getStartTimeLocSch()) << " "
@@ -193,7 +197,7 @@ void OutputHandler::writeUncoveredFlight(const SegNodeSet& allSegNodeSet, const 
 	Opt_Segment* seg;
 	for (const auto& seg_node : allSegNodeSet) {
 		seg = seg_node->optSegment;
-		if (seg_node->nodeType == NodeType::seg && seg->getAssigned() == false) {
+		if (seg_node->nodeType == NodeType::SEGMENT && seg->getAssigned() == false) {
 			ss << seg->getDBId() << "^"
 				<< seg->getTailNum() << "^"
 				<< utcToUtcDtString(seg->getStartTimeLocSch()) << "^"

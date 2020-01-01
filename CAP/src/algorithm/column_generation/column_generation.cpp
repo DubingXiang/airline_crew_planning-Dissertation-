@@ -2,7 +2,6 @@
 #include "../../../include/algorithm_xdb.h"
 
 
-
 const std::string MIP_FILE_PATH = "../data/output/mip_files/";
 
 
@@ -23,18 +22,18 @@ CrewSchedulingColumnGenerationModule::~CrewSchedulingColumnGenerationModule() {
 	std::cout << "column generation destruct function\n";
 }
 
-void CrewSchedulingColumnGenerationModule::init(/*ColumnPool& initialPool*/int curDay, std::vector<CrewGroup*>& initialGroups,
-							CrewNetwork& crewNet,
-							SegNetwork& segNet,
-							const CrewRules& rules,
-							const Penalty& penaltySetting) {	
+void CrewSchedulingColumnGenerationModule::init(int curDay, std::vector<CrewGroup*>& initialGroups,
+	Network::CrewNetwork& crewNet,
+	Network::SegNetwork& segNet,
+	const CrewRules& rules
+							/*const Penalty& penaltySetting*/) {	
 	_cur_day_str = std::to_string(curDay);
 
 	_global_pool = new ColumnPool();
 	_crew_net = &crewNet;
 	_seg_net = &segNet;
 	_rules = &rules;
-	_penalty = &penaltySetting;
+	//_penalty = &penaltySetting; //changed 20191229
 	_crew_node_set = &crewNet.nodeSet;
 	_seg_node_set = &segNet.nodeSet;
 
@@ -50,7 +49,8 @@ void CrewSchedulingColumnGenerationModule::init(/*ColumnPool& initialPool*/int c
 void CrewSchedulingColumnGenerationModule::solve() {
 	int result = 0;	
 	_sub_pro->findSegPaths();
-	_sub_pro->setPathStatus(*_penalty);
+	//_sub_pro->setPathStatus(*_penalty); //changed 20191229
+	_sub_pro->setPathStatus();
 	_sub_pro->setCurDaySegSet();
 	_sub_pro->setIndexOfCurSeg();
 	//_sub_pro->labelSpecialSegPath()

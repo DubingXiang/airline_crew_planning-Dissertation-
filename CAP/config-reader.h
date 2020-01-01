@@ -25,7 +25,7 @@
 #include <direct.h>
 #include <windows.h>
 
-namespace util {
+namespace utils {
 	
 	class WorkDirConfig;
 	class DirectoryManager;

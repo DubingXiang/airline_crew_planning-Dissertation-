@@ -1,4 +1,7 @@
 #include "period.h"
+#include "../algorithm/column_generation/column_generation.h"
+
+using namespace Network;
 
 Period::Period(SegNetwork* segNet, SegNodeSet* segNodeSetOfCurrPeriod, CrewNodeSet* crewNodeSet) {
 	_segNet = segNet;

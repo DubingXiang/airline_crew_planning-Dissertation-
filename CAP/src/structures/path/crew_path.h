@@ -1,12 +1,12 @@
 #pragma once
 #ifndef CREW_PATH_H
 #define CREW_PATH_H
-#include "..\..\pch.h"
+#include "../../pch.h"
+#include "../../util/unit_penalty_setting.h"
+#include "../network/crew_node_arc.h"
 #include "IPath.h"
 #include "seg_path.h"
 
-class Opt_CREW;
-class CrewNode;
 
 struct CrewGroupPrice
 {
@@ -42,7 +42,7 @@ public:
 
 
 	void computeCost();
-	std::vector<CrewNode*>& getNodeSequence() { return _crewNodeSequence; }
+	std::vector<Network::CrewNode*>& getNodeSequence() { return _crewNodeSequence; }
 	void setCrewGroup();	
 	std::vector<Opt_CREW*>& getCrewGroup() { return _crewGroup; }
 
@@ -59,13 +59,15 @@ public:
 	time_t endDtLoc;
 	std::string curStation;
 
-	const compoMode* compo_mode;
+	const compoMode* compo_mode; // 在seg_path.h 中，TODO:应该独立出去 20191229
 
 
 private:
 	int _nbCrewNodes;
-	std::vector<CrewNode*> _crewNodeSequence;
+	std::vector<Network::CrewNode*> _crewNodeSequence;
 	CrewGroupPrice _crewsPrice;
+	utils::CrewCostTypeAmount _costtype_to_amount; 
+
 	std::vector<Opt_CREW*> _crewGroup;
 
 };

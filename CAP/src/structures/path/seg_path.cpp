@@ -1,19 +1,19 @@
 #include "Seg_Path.h"
+#include "../../../csv_impl.h"
+#include "../../../crewDB_mine.h"
 
-#include "..\..\..\csv_impl.h"
-#include "..\..\..\crewDB_mine.h"
+#include "../../problem/cost/event_path_costcalculator.h"
+//#include "../network/seg_network.h"
+//#include "crew_path.h"
 
-#include "..\generic\csvClassesTransOptimizable.h"
-
-#include "seg_network.h"
-#include "crew_path.h"
+using namespace Network;
 
 //SegPath::SegPath(Penalty& penaltySetting) { 
 //	_penalty_setting = &penaltySetting; 
 //}
-SegPath::SegPath() {	
+EventPath::EventPath() {	
 }
-SegPath::~SegPath() {
+EventPath::~EventPath() {
 	startNode = NULL;
 	endNode = NULL;
 
@@ -21,11 +21,11 @@ SegPath::~SegPath() {
 	//_crewGroup.clear();
 }
 
-double SegPath::getCost() const {
+double EventPath::getCost() const {
 	return _total_cost;
 }
 
-void SegPath::init(/*const Penalty& penaltySetting*/) {	
+void EventPath::init(/*const Penalty& penaltySetting*/) {	
 	_nbSegNodes = _segNodeSequence.size(); 
 	startNode = _segNodeSequence.front();
 	csvComposition* duty_compo = startNode->optSegment->getCompositon();
@@ -51,7 +51,7 @@ void SegPath::init(/*const Penalty& penaltySetting*/) {
 	int total_fly_min_dhd = 0;
 	total_dhd = 0;
 	for (const auto& segnode : _segNodeSequence) {
-		if (segnode->nodeType == NodeType::dhd) {
+		if (segnode->nodeType == NodeType::DEADHEAD) {
 			++total_dhd;
 			total_fly_min_dhd += segnode->taskMin;
 		}
@@ -62,25 +62,24 @@ void SegPath::init(/*const Penalty& penaltySetting*/) {
 	total_credit_mint = end_label->accumuWorkMin;
 
 }
-void SegPath::computeCost(/*std::vector<costTuple>& costTuples*/const Penalty& penaltySetting) {
-	//一些cost如dhd_cost可在搜索路时就求出来了
-	_penalty_setting = &penaltySetting;
+void EventPath::computeCost(const std::map<utils::EventPathCostType, int>& eventPathCostTypePenalty) {
+	////一些cost如dhd_cost可在搜索路时就求出来了
+	//_penalty_setting = &penaltySetting;
+	//_total_cost = _penalty_setting->penalty_dhd * total_dhd;
+	_total_cost = EventPathCostCalculator::calCost(eventPathCostTypePenalty, 
+		_costtype_to_amount.getAmountMap());
 
-	_total_cost = _penalty_setting->penalty_dhd * total_dhd;
-			   //+ _penalty_setting->prnalty_longtime_stop * total_long_stop_mint;
 }
 
-void SegPath::setSegIndexSet(const std::vector<Opt_Segment*>& curDayOptSegSet) {
+void EventPath::setSegIndexSet(const std::vector<Opt_Segment*>& curDayOptSegSet) {
 	auto begin = curDayOptSegSet.begin();
 	auto end = curDayOptSegSet.end();
 	for (const auto& segnode : _segNodeSequence) {
-		if (segnode->nodeType == NodeType::dhd) {
+		if (segnode->nodeType == NodeType::DEADHEAD) {
 			continue;
 		}
 		auto pos = std::find(begin, end, segnode->optSegment);
 		int index = pos - begin;
 		optseg_id_sequence.emplace_back(index);
-	}
-	
-
+	}	
 }

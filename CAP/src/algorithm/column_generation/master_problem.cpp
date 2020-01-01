@@ -2,6 +2,8 @@
 #include "../../../include/SummeryTool_H.h"
 #include <assert.h>
 
+using namespace Network;
+
 static Summery::StopWatch STOP_WATCHER;
 
 MasterProblem::MasterProblem() {

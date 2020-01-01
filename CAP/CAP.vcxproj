@@ -33,6 +33,8 @@
     <ClCompile Include="src\easylogging\easylogging++.cc" />
     <ClCompile Include="src\io\output\output_handler.cpp" />
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\problem\cost\crew_group_costcalculator.cpp" />
+    <ClCompile Include="src\problem\cost\event_path_costcalculator.cpp" />
     <ClCompile Include="src\problem\period.cpp" />
     <ClCompile Include="src\problem\problem.cpp" />
     <ClCompile Include="src\problem\solution\crew_scheduling_solution.cpp" />
@@ -40,10 +42,14 @@
     <ClCompile Include="src\structures\generic\csvClassesTransOptimizable.cpp" />
     <ClCompile Include="src\structures\IThread_db.cpp" />
     <ClCompile Include="src\structures\network\crew_network.cpp" />
-    <ClCompile Include="src\structures\network\crew_path.cpp" />
+    <ClCompile Include="src\structures\network\crew_node_arc.cpp" />
+    <ClInclude Include="src\structures\network\crew_node_arc.h" />
     <ClCompile Include="src\structures\network\seg_network.cpp" />
-    <ClCompile Include="src\structures\network\seg_path.cpp" />
+    <ClCompile Include="src\structures\network\seg_node_arc.cpp" />
+    <ClCompile Include="src\structures\path\crew_path.cpp" />
+    <ClCompile Include="src\structures\path\seg_path.cpp" />
     <ClCompile Include="src\util\examples.cpp" />
+    <ClCompile Include="src\util\unit_penalty_store.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config-reader.h" />
@@ -51,12 +57,16 @@
     <ClInclude Include="src\algorithm\crew_scheduling_algorithm.h" />
     <ClInclude Include="src\algorithm\solving_approach_module.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\problem\cost\crew_group_costcalculator.h" />
+    <ClInclude Include="src\problem\cost\event_path_costcalculator.h" />
     <ClInclude Include="src\problem\period.h" />
     <ClInclude Include="src\problem\problem.h" />
     <ClInclude Include="src\problem\solution\crew_scheduling_solution.h" />
     <ClInclude Include="src\structures\defines.h" />
+    <ClInclude Include="src\structures\network\seg_node_arc.h" />
     <ClInclude Include="src\test\test.h" />
     <ClInclude Include="src\util\examples.h" />
+    <ClInclude Include="src\util\unit_penalty_setting.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

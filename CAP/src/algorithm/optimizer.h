@@ -4,21 +4,19 @@
 #include "../pch.h"
 
 #include "../problem/problem.h"
+#include "../structures/network/seg_network.h"
+#include "../structures/network/crew_network.h"
 #include "../algorithm/column_generation/column_generation.h"
 
 
-//class CrewRules;
 class PosOrderSeqvec;
 class OrderPosSeqvec;
 
-//class Opt_Segment;
-//class Opt_CREW;
 
-class SegNetwork;
-class CrewNetwork;
-class CrewGroup;
-class SegPath;
-class GroupSearcher;
+//class CrewGroup;
+//class EventPath;
+
+//class GroupSearcher;
 
 /**
  * @class Optimizer
@@ -30,10 +28,10 @@ class GroupSearcher;
 class Optimizer
 {
 public:
-	Optimizer(const Problem* problem, const CrewRules* rules, const Penalty* penelty) :
+	Optimizer(const Problem* problem, const CrewRules* rules/*, const Penalty* penelty*/) :
 		_problem(problem),
-		_rules(rules),
-		_penalty(penelty) {
+		_rules(rules)
+		/*_penalty(penelty)*/ {
 	
 	}
 	~Optimizer();
@@ -80,25 +78,25 @@ private:
 	
 	const Problem* _problem;
 	const CrewRules* _rules;
-	const Penalty* _penalty;
+	//const Penalty* _penalty; //changed 20191229
 	
 	std::vector<Opt_Segment*> _optSegSet;
 	std::vector<Opt_CREW*> _optCrewSet;
 
-	SegNetwork* _segNet;
-	CrewNetwork* _crewNet;	
+	Network::SegNetwork* _segNet;
+	Network::CrewNetwork* _crewNet;
 
 	/*for calculate*/
-	std::map<std::string, SegNodeSet> _day_segnode_map;
-	std::map<time_t, SegNodeSet> _daytime_segnode_map;
+	std::map<std::string, Network::SegNodeSet> _day_segnode_map;
+	std::map<time_t, Network::SegNodeSet> _daytime_segnode_map;
 	
 	time_t _begining_plan;
 	
-	SegNodeSet* _cur_day_segnode_set;
+	Network::SegNodeSet* _cur_day_segnode_set;
 
 	// added-20190819
 
-	std::map<std::string, std::vector<CrewNode*>> _pos_crewnodes; //position-vector<CrewNode*>
+	std::map<std::string, std::vector<Network::CrewNode*>> _pos_crewnodes; //position-vector<CrewNode*>
 };
 
 #endif // !OPTIMIZER_H

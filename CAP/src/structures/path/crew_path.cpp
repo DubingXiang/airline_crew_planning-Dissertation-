@@ -1,6 +1,9 @@
 #include "crew_path.h"
-#include "crew_network.h"
-#include "../../structures/generic/csvClassesTransOptimizable.h"
+#include "../network/crew_network.h"
+
+#include "../generic/csvClassesTransOptimizable.h"
+
+using namespace Network;
 
 CrewGroup::~CrewGroup() {
 	_crewNodeSequence.clear();

@@ -1,81 +1,50 @@
 #pragma once
 #ifndef CREW_NETWORK_H
 #define CREW_NETWORK_H
-#include "INetwork.h"
 #include "../../pch.h"
+#include "INetwork.h"
+#include "crew_node_arc.h"
+
+
 
 class Opt_CREW;
 class CrewRules;
 
-class CrewNode;
-class CrewArc;
+namespace Network {	
 
-using CrewNodeSet = std::vector<CrewNode*>;
-using CrewArcSet = std::vector<CrewArc*>;
+	class CrewNetwork :public INetwork
+	{
+	public:
+		CrewNetwork(std::vector<Opt_CREW*>* optCrewSet, CrewRules* rules) {
+			_optCrewSet = optCrewSet;
+			_rules = rules;
 
-class CrewNode :public INode
-{
-public:
-	CrewNode() {};
-	CrewNode(Opt_CREW* optCrew);
-	virtual ~CrewNode();
-	virtual void setNodeType(NodeType type);
+			resource = new CrewNode();
+			sink = new CrewNode();
+		}
+		virtual ~CrewNetwork();
+		virtual void createNetwork();
+		//! 重建网络，每一天决策后，crew的所在地会变化，所以只有所在地相同的crew才能相连
+		void rebuildNetwork();
+		CrewNode* resource;
+		CrewNode* sink;
 
-	void setPrice(double price);
-	CrewArcSet outArcSet;
-	CrewArcSet inArcSet;
+		CrewNodeSet nodeSet;
+		CrewArcSet arcSet;
 
-	Opt_CREW* optCrew;
-	double price;
+	private:
+		std::vector<Opt_CREW*>* _optCrewSet;
+		CrewRules* _rules;
 
-	//bool visited;
-};
+		std::map<std::string, std::vector<CrewNode*>> _pos_nodeset_map;
+		void clusterCrewNode();
 
-class CrewArc :public IArc
-{
-public:
-	CrewArc(CrewNode* startNode, CrewNode* endNode);
-	virtual ~CrewArc();
-	virtual void setArcType(ArcType type);
-	virtual void setArcLen(int length);
+		void setOptCrewNodeSet();
+		void createOptCrewNodes();
 
-	CrewNode* startNode;
-	CrewNode* endNode;
-};
-
-
-class CrewNetwork :public INetwork
-{
-public:
-	CrewNetwork(std::vector<Opt_CREW*>* optCrewSet, CrewRules* rules) {
-		_optCrewSet = optCrewSet;
-		_rules = rules;
-
-		resource = new CrewNode();
-		sink = new CrewNode();
-	}
-	virtual ~CrewNetwork();
-	virtual void createNetwork();
-	//! 重建网络，每一天决策后，crew的所在地会变化，所以只有所在地相同的crew才能相连
-	void rebuildNetwork();
-	CrewNode* resource;
-	CrewNode* sink;
-
-	CrewNodeSet nodeSet;
-	CrewArcSet arcSet;
-
-private:
-	std::vector<Opt_CREW*>* _optCrewSet;
-	CrewRules* _rules;
-
-	std::map<std::string, std::vector<CrewNode*>> _pos_nodeset_map;
-	void clusterCrewNode();
-
-	void setOptCrewNodeSet();
-	void createOptCrewNodes();
-
-	void createOptCrewArcs();
-	void createVirtualArcs();
-};
+		void createOptCrewArcs();
+		void createVirtualArcs();
+	};
+}
 
 #endif // !CREW_NETWORK_H

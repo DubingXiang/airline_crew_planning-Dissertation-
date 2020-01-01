@@ -2,13 +2,14 @@
 #include "../../UtilFunc.h"
 #include "../structures/generic/csvClassesTransOptimizable.h"
 #include "../structures/crew_rules.h"
-#include "../structures/network/seg_network.h"
-#include "../structures/network/crew_network.h"
-#include "../structures/network/seg_path.h"
-#include "../structures/network/crew_path.h"
+
+#include "../structures/path/seg_path.h"
+#include "../structures/path/crew_path.h"
 #include "../algorithm/crewgroup_searcher.h"
 #include "../io/output/output_handler.h"
-#include "../structures/param_setting/cost_parameters.h"
+//#include "../problem/cost/cost_tuple.h"
+
+using namespace Network;
 
 //! for debug
 #include "../../include/SummeryTool_H.h"
@@ -40,7 +41,7 @@ void Optimizer::optimize() {
 	TIMER.Stop();
 	TIMER.printElapsed();
 
-	logger->info("created connect network\n");
+	logger->info("created connect network/n");
 	
 
 	OutputHandler output_handler;
@@ -81,7 +82,7 @@ void Optimizer::optimize() {
 		//initial_soln
 		// 4.
 		CrewSchedulingColumnGenerationModule* column_generation = new CrewSchedulingColumnGenerationModule();
- 		column_generation->init(iter, initial_groups, *_crewNet, *_segNet, *_rules, *_penalty);
+ 		column_generation->init(iter, initial_groups, *_crewNet, *_segNet, *_rules/*, *_penalty*/);
 		column_generation->solve();
 
 		CrewSchedulingSolution* cur_day_soln = new CrewSchedulingSolution(column_generation->getBestSoln());

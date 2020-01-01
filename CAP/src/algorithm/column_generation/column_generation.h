@@ -3,12 +3,15 @@
 #define COLUMN_GENERATION_H
 #include "../../pch.h"
 #include "../../problem/solution/crew_scheduling_solution.h"
-
+#include "../../structures/network/seg_network.h"
+#include "../../structures/network/crew_network.h"
 #include "master_problem.h"
 #include "subproblem.h"
 #include "column_generation_module.h"
 
 #include "ilcplex/ilocplex.h"
+
+
 
 const int MAX = 1000 * 1000 * 1000;
 const int MAX_NUM_ITER = 300;
@@ -27,8 +30,6 @@ public:
 	CrewSchedulingColumnGenerationModule();
 	~CrewSchedulingColumnGenerationModule();
 
-	
-
 	/**
 	 * @brief 初始化决策当天的输入
 	 * @param 当前决策所在天数
@@ -38,11 +39,11 @@ public:
 	 * @param 乘务规则
 	 * @param 惩罚成本参数
 	 */
-	void init(/*ColumnPool& initialPool*/int curDay, std::vector<CrewGroup*>& initialGroups, 
-			  CrewNetwork& crewNet, 
-			  SegNetwork& segNet, 
-			  const CrewRules& rules,
-			  const Penalty& penaltySetting);
+	void init(int curDay, std::vector<CrewGroup*>& initialGroups, 
+		Network::CrewNetwork& crewNet,
+		Network::SegNetwork& segNet,
+		const CrewRules& rules
+			  /*const Penalty& penaltySetting*/);
 	/**
 	 * @brief 整体求解框架
 	 */
@@ -83,12 +84,12 @@ private:
 
 	std::string _cur_day_str;
 
-	CrewNetwork* _crew_net;
-	SegNetwork* _seg_net;
+	Network::CrewNetwork* _crew_net;
+	Network::SegNetwork* _seg_net;
 	const CrewRules* _rules;
-	const Penalty* _penalty;
-	std::vector<CrewNode*>* _crew_node_set;
-	std::vector<SegNode*>* _seg_node_set;
+	//const Penalty* _penalty; //changed 20191229
+	std::vector<Network::CrewNode*>* _crew_node_set;
+	std::vector<Network::SegNode*>* _seg_node_set;
 
 	MasterProblem* _master;
 	SubProblem* _sub_pro;

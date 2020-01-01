@@ -1,8 +1,8 @@
 #pragma once
 #ifndef COLUMN_H
 #define COLUMN_H
-#include "../../structures/network/seg_path.h"
-#include "../../structures/network/crew_path.h"
+#include "../../structures/path/seg_path.h"
+#include "../../structures/path/crew_path.h"
 
 
 /**
@@ -33,7 +33,7 @@ public:
 	 * @param 构成该列的duty
 	 * @param 构成该列的crewGroup
 	 */
-	Column(SegPath& segPath, CrewGroup& crewGroup) {
+	Column(EventPath& segPath, CrewGroup& crewGroup) {
 		_segpath = &segPath;
 		_crewgroup = &crewGroup;
 
@@ -50,7 +50,7 @@ public:
 	const int FIXED_COST = 0;//100; //固定成本
 	double reduced_cost;
 
-	SegPath* _segpath;
+	EventPath* _segpath;
 	CrewGroup* _crewgroup;
 
 	ColumnType type;

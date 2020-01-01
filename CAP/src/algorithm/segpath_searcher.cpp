@@ -1,9 +1,7 @@
 #include "segpath_searcher.h"
-#include "../structures/network/seg_network.h"
-#include "../structures/network/seg_path.h"
 #include "../structures/crew_rules.h"
 
-
+using namespace Network;
 //SegPathSearcher::SegPathSearcher(SegNetwork& segNet, SegNode& s, CrewRules& rules) {
 //	_net = &segNet;
 //	_s = &s;
@@ -96,7 +94,7 @@ void SegPathSearcher::enumerateByDFS() {
 
 			int visited = _visited_by_path[cur_arc];
 			// next_node not visited and not been visited just recently
-			if (!next_node->visited && visited == 0 && next_node->nodeType != NodeType::baseD) {				
+			if (!next_node->visited && visited == 0 && next_node->nodeType != NodeType::BASE_T) {
 				extend(*cur_node->label, *cur_arc, next_node->label);
 				updateLabel(*cur_node->label, *cur_arc, next_node->label);								
 				node_stack.push(next_node);
@@ -120,19 +118,19 @@ void SegPathSearcher::enumerateByDFS() {
 		//added 8-7-2019
 		//prune dhd
 		//1.dhd-dhd, cut, and don't create a new path
-		if (next_node->nodeType == NodeType::dhd && cur_node->nodeType == NodeType::dhd) {
+		if (next_node->nodeType == NodeType::DEADHEAD && cur_node->nodeType == NodeType::DEADHEAD) {
 			next_node->visited = false;
 			node_stack.pop();
 		}
 		//end! added		
 		else if (isValidDuration(*end_label)) {			
-			SegPath* new_path = backtrack(*end_label);
+			EventPath* new_path = backtrack(*end_label);
 			new_path->init();
 			_segpath_set.emplace_back(new_path);
 			
 			//added 8-7-2019
 			//seg-dhd, cut, but creat a new path
-			if (next_node->nodeType == NodeType::dhd && cur_node->nodeType == NodeType::seg) {
+			if (next_node->nodeType == NodeType::DEADHEAD && cur_node->nodeType == NodeType::SEGMENT) {
 				next_node->visited = false;
 				node_stack.pop();
 			}
@@ -146,7 +144,7 @@ void SegPathSearcher::enumerateByDFS() {
 
 void SegPathSearcher::extend(const Label& curLabel, const SegArc& curArc, Label* nextLabel) {
 	nextLabel->accumuFlyMin = curLabel.accumuFlyMin + curArc.endNode->taskMin;
-	nextLabel->accumuWorkMin = curArc.arcType != ArcType::baseOut
+	nextLabel->accumuWorkMin = curArc.arcType != ArcType::BASE_LEVING
 		? curLabel.accumuWorkMin + curArc.len + curArc.endNode->taskMin//equals flyMin + connect time(arc.len)
 		: nextLabel->accumuFlyMin;		
 }
@@ -190,8 +188,8 @@ bool SegPathSearcher::isMetTermination(const Label& curLabel) {
 		//|| curLabel.preArc->endNode->nodeType == NodeType::dhd;	
 }
 
-SegPath* SegPathSearcher::backtrack(Label& endLabel) {
-	SegPath* new_path = new SegPath();
+EventPath* SegPathSearcher::backtrack(Label& endLabel) {
+	EventPath* new_path = new EventPath();
 	Label* label = &endLabel;
 	SegArc* arc = endLabel.preArc;
 

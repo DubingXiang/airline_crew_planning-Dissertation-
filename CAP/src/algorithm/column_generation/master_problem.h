@@ -2,9 +2,10 @@
 #ifndef MASTER_PROBLEM_H
 #define MASTER_PROBLEM_H
 #include "column.h"
+#include "../../structures/generic/csvClassesTransOptimizable.h"
 #include "../../structures/network/crew_network.h"
 #include "../../structures/network/seg_network.h"
-#include "../../structures/generic/csvClassesTransOptimizable.h"
+
 #include "ilcplex/ilocplex.h"
 #include <memory>
 
@@ -33,7 +34,9 @@ public:
 	 * @param 要覆盖的segment集合
 	 * @param 要指派的crew集合
      */
-	void init(ColumnPool* columnpool_ptr, std::vector<Opt_Segment*>& segSet, std::vector<CrewNode*>& crewNodeSet);
+	void init(ColumnPool* columnpool_ptr, 
+		std::vector<Opt_Segment*>& segSet, 
+		std::vector<Network::CrewNode*>& crewNodeSet);
 	/**
 	 * @brief 记录crew决策前的初始飞时
 	 *
@@ -131,7 +134,7 @@ private:
 	std::vector<int> _init_crew_fly_mint;
 
 	std::vector<Opt_Segment*>* _seg_set;
-	std::vector<CrewNode*>* _crewnode_set;
+	std::vector<Network::CrewNode*>* _crewnode_set;
 	size_t _seg_num;
 	size_t _crew_num;
 

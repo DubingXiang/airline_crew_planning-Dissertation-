@@ -8,9 +8,7 @@ public:
 	IPath() {};
 	virtual ~IPath() {};
 
-	virtual double getCost() const = 0;
-	
-
+	virtual double getCost() const = 0;	
 };
 
 #endif // !IPATH_H
